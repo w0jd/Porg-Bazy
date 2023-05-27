@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Paweł\\source\\repos\\projekt\\projekt\\projekt.csproj": {}
+    "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\projekt.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Paweł\\source\\repos\\projekt\\projekt\\projekt.csproj": {
+    "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\projekt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Paweł\\source\\repos\\projekt\\projekt\\projekt.csproj",
+        "projectUniqueName": "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\projekt.csproj",
         "projectName": "projekt",
-        "projectPath": "C:\\Users\\Paweł\\source\\repos\\projekt\\projekt\\projekt.csproj",
+        "projectPath": "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\projekt.csproj",
         "packagesPath": "C:\\Users\\Paweł\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Paweł\\source\\repos\\projekt\\projekt\\obj\\",
+        "outputPath": "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Paweł\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,28 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
