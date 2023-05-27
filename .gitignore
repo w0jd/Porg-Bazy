@@ -5,7 +5,4 @@
 *.vsidx
 *.exe
 
-/.vs/slnx.sqlite
-/projekt/.vs/ProjectEvaluation/projekt.metadata.v7.bin
-/projekt/.vs/ProjectEvaluation/projekt.projects.v7.bin
-/projekt/.vs/projekt/v17/HierarchyCache.v1.txt
+/.vs/
