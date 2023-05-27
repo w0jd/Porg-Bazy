@@ -3,8 +3,5 @@
 ################################################################################
 
 *.vsidx
-/projekt/projekt/obj/project.nuget.cache
-*.props
-*.cache
 *.exe
-/.vs
+
