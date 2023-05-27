@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Login</h1>
+<div class="login-form">
+    <form action="Verify" method="post">
+        <div class="pole-login">
+            <label>Nazwa użytkownika:</label>
+            <input type="text" name="Name" placeholder="wpisz nazwę użytkownika" required="" />
+        </div>
+        <div class="pole-login">
+            <label>hasło</label>
+            <input type="password" placeholder="Wpisz hasło" required="" id="passwd" />
+        </div>
+        <div class="label">
+            <input type="checkbox" name="checkbox" value="show password" onclick="showPwd()" />
+            <label>pokaż hasło</label>
+        </div>
+        <script>
+            function showPwd(){
+                var x = document.getElementById("passwd");
+                if(x.type==="password"){
+                    x.type="text";
+                }
+                else{
+                    x.type="password";
+                }
+
+            }
+        </script>
+        <input type="submit" value="Zaloguj" />
+    </form>
+</div>
