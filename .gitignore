@@ -1,0 +1,11 @@
+﻿################################################################################
+# Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
+################################################################################
+
+*.vsidx
+/projekt/projekt/obj/project.nuget.cache
+*.props
+*.cache
+*.exe
+/projekt/.vs
+/projekt/.vs/ProjectEvaluation/projekt.projects.v6.1
