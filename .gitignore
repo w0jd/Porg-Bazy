@@ -9,3 +9,6 @@
 *.exe
 /projekt/.vs
 /projekt/.vs/ProjectEvaluation/projekt.projects.v6.1
+/projekt/projekt/obj/Debug
+/.vs
+/projekt/projekt/bin/Debug
