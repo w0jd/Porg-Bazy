@@ -10,7 +10,7 @@ using Projekt.Data;
 namespace projekt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230529133736_Intial-Migration")]
+    [Migration("20230529144816_Intial-Migration")]
     partial class IntialMigration
     {
         /// <inheritdoc />
@@ -20,6 +20,25 @@ namespace projekt.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("projekt.Models.Konto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Haslo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Nazwa")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Konta");
+                });
 
             modelBuilder.Entity("projekt.Models.Produkt", b =>
                 {
