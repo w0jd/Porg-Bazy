@@ -6,16 +6,12 @@ namespace projekt.Controllers
 {
     public class AccountController : Controller
     {
-        /*
-        //połączenie z bazą danych (do zmiany?)
-        MySqlConnection con = new MySqlConnection();
-        MySqlCommand com = new MySqlCommand();
-        MySqlDataReader dr;
-        void ConnectionString()
+
+        private readonly ApplicationDbContext _context;
+        public AccountController(ApplicationDbContext context)
         {
-
-        }*/
-
+            _context = context;
+        }//połączenie z bazą
         [HttpGet]
         public IActionResult Login()
         {
@@ -25,22 +21,7 @@ namespace projekt.Controllers
         [HttpPost]
         public ActionResult Verify(Konto acc)
         {
-            /*
-            ConnectionString();
-            con.Open();
-            com.CommandText = "select * from users where username='"+acc.Nazwa+"' and password='"+acc.Haslo+"';";
-
-            dr= com.ExecuteReader();
-            
-            Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
-            if (dr.Read())
-            {
-                con.Close();
-            }
-            else {
-                con.Close();
-                return View();
-            }*/
+           
             Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
             return View("wf");
         }
@@ -54,31 +35,22 @@ namespace projekt.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Register(Konto acc)
+        public IActionResult Register(Konto acc)
         {
-            /*
-            ConnectionString();
-            con.Open();
-            com.CommandText = "select * from users where username='"+acc.Nazwa+"' and password='"+acc.Haslo+"';";
-
-            dr= com.ExecuteReader();
-            
-            Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
-            if (dr.Read())
+            if (_context.Konta.Any(u => u.Nazwa == acc.Nazwa))
             {
-                con.Close();
+                Console.WriteLine("Nazwa zajęta");
             }
-            else {
-                con.Close();
-                return View();
-            }*/
             Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
-            return View("wf");
+            _context.Konta.Add(acc);
+            _context.SaveChanges();
+            return View("Login");
         }
     }
 }
