@@ -6,7 +6,6 @@ namespace projekt.Controllers
 {
     public class AccountController : Controller
     {
-
         private readonly ApplicationDbContext _context;
         public AccountController(ApplicationDbContext context)
         {
@@ -17,29 +16,26 @@ namespace projekt.Controllers
         {
             return View();
         }
-
         [HttpPost]
-        public ActionResult Verify(Konto acc)
+        public async Task<IActionResult> Verify(LoginModel request)
         {
-           
-            Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
-            return View("wf");
+            var user = _context.Konta.First(u => u.Nazwa == request.Nazwa);
+            if (user == null)
+            {
+                TempData["success"] = "user not found";
+                return RedirectToAction("Index", "Home");
+            }
+            await SignInUser(user.Nazwa);
+            // var username = HttpContext.User.Identity.Name;
+            return RedirectToAction("Index", "Home");
+          /*  Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
+            return View("wf");*/
         }
-
-
-
-        //Register
-
-
-
         [HttpGet]
         public IActionResult Register()
         {
-
             return View();
         }
-
-
         [HttpPost]
         public IActionResult Register(Konto acc)
         {
@@ -51,6 +47,21 @@ namespace projekt.Controllers
             _context.Konta.Add(acc);
             _context.SaveChanges();
             return View("Login");
+        }
+      //  [HttpPost("Login")]
+     
+        private async Task SignInUser(string username)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, username),//tworzy coś w rodzaju obiektu o tych wartościach              
+            };
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);//tworzy obiekt reprezentujący tożsamość uzytkownika składjący się z jego nazwy i typu uwierzytenienia 
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));// zapisuje informacje o użytkownkiu w pliku cookie  claimsPrincipal reprezentuje identyfkacje i autoryzację użytkownika 
+            RedirectToAction("Index", "Home");
         }
     }
 }

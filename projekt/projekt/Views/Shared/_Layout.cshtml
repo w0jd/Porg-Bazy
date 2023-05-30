@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using System.Security.Claims
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -28,6 +31,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Zaloguj się</a>
                         </li>
+                       @if (User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item">
+                          <a class="nav-link text-dark">@HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value</a>
+                        </li>
+                        }
                     </ul>
                 </div>
             </div>
