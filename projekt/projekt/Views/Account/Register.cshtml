@@ -1,10 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Login</h1>
+<h1>Rejestracja</h1>
 <div class="login-form">
-    <form action="Verify" method="post">
+    <form action="Register" method="post">
         <div class="pole-login">
             <label>Nazwa użytkownika:</label>
             <input type="text" name="Nazwa" placeholder="wpisz nazwę użytkownika" required="" />
@@ -21,16 +21,15 @@
             function showPwd(){
                 var x = document.getElementById("passwd");
                 if(x.type==="password"){
+
                     x.type="text";
                 }
                 else{
                     x.type="password";
                 }
+
             }
         </script>
-        <input type="submit" value="Zaloguj" />
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">
-            <input type="button" value="Zarejestruj się" />
-        </a>
+        <input type="submit" value="Zarejestruj się" />
     </form>
 </div>

@@ -14,9 +14,8 @@ namespace projekt.Controllers
         void ConnectionString()
         {
 
-        }
-        //koniec połączenia
-        */
+        }*/
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -24,28 +23,62 @@ namespace projekt.Controllers
         }
 
         [HttpPost]
-        public ActionResult Verify(Account acc)
+        public ActionResult Verify(Konto acc)
         {
             /*
             ConnectionString();
             con.Open();
-            com.CommandText = "select * from users where username='"+acc.Name+"' and password='"+acc.Password+"';";
+            com.CommandText = "select * from users where username='"+acc.Nazwa+"' and password='"+acc.Haslo+"';";
+
             dr= com.ExecuteReader();
-            if(dr.Read())
+            
+            Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
+            if (dr.Read())
             {
                 con.Close();
-                return View();
             }
             else {
                 con.Close();
                 return View();
-            }
-            */
-
-            Console.WriteLine(acc.Name + " " + acc.Password);
+            }*/
+            Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
             return View("wf");
+        }
 
+
+
+        //Register
+
+
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Register(Konto acc)
+        {
+            /*
+            ConnectionString();
+            con.Open();
+            com.CommandText = "select * from users where username='"+acc.Nazwa+"' and password='"+acc.Haslo+"';";
+
+            dr= com.ExecuteReader();
             
+            Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
+            if (dr.Read())
+            {
+                con.Close();
+            }
+            else {
+                con.Close();
+                return View();
+            }*/
+            Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
+            return View("wf");
         }
     }
 }

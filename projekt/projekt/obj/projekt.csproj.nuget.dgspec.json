@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Wojtek\\Documents\\GitHub\\Porg-Bazy\\projekt\\projekt\\projekt.csproj": {}
+    "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\projekt.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Wojtek\\Documents\\GitHub\\Porg-Bazy\\projekt\\projekt\\projekt.csproj": {
+    "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\projekt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Wojtek\\Documents\\GitHub\\Porg-Bazy\\projekt\\projekt\\projekt.csproj",
+        "projectUniqueName": "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\projekt.csproj",
         "projectName": "projekt",
-        "projectPath": "C:\\Users\\Wojtek\\Documents\\GitHub\\Porg-Bazy\\projekt\\projekt\\projekt.csproj",
-        "packagesPath": "C:\\Users\\Wojtek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Wojtek\\Documents\\GitHub\\Porg-Bazy\\projekt\\projekt\\obj\\",
+        "projectPath": "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\projekt.csproj",
+        "packagesPath": "C:\\Users\\Paweł\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Paweł\\source\\repos\\w0jd\\Porg-Bazy\\projekt\\projekt\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Wojtek\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Paweł\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
