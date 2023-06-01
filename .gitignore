@@ -9,3 +9,7 @@
 /projekt/.vs/projekt/v17/.suo
 /.vs/Porg-Bazy/v17/.wsuo
 /projekt/.vs/projekt/v17/.suo
+
+**/.vs/
+**/bin/
+**/obj/
