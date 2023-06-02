@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MySqlConnector;
+
 using projekt.Models;
 
 namespace projekt.Controllers
@@ -25,8 +25,13 @@ namespace projekt.Controllers
                 TempData["success"] = "user not found";
                 return RedirectToAction("Index", "Home");
             }
+            if (user.Haslo != request.Haslo)
+            {
+                TempData["success"] = "złe hasło";
+                return RedirectToAction("Index", "Home");
+            }
             await SignInUser(user.Nazwa);
-            // var username = HttpContext.User.Identity.Name;
+            var username = HttpContext.User.Identity.Name;
             return RedirectToAction("Index", "Home");
           /*  Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
             return View("wf");*/
@@ -61,7 +66,7 @@ namespace projekt.Controllers
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));// zapisuje informacje o użytkownkiu w pliku cookie  claimsPrincipal reprezentuje identyfkacje i autoryzację użytkownika 
-            RedirectToAction("Index", "Home");
+           
         }
     }
 }

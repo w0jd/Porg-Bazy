@@ -28,13 +28,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Zaloguj się</a>
-                        </li>
+
                        @if (User.Identity.IsAuthenticated)
                         {
                         <li class="nav-item">
                           <a class="nav-link text-dark">@HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value</a>
+                            </li>
+                        }
+                        else
+                        {
+                                                    <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Zaloguj się</a>
                         </li>
                         }
                     </ul>
