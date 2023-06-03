@@ -4,7 +4,7 @@
     {
         [Required]
         [Key]
-        public int ID_Produktu { get; set; }
+        public int Id { get; set; }
         [StringLength(maximumLength: 61)]
         public string ?Nazwa { get; set; }
         [StringLength(maximumLength: 12)]
