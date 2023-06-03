@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using projekt.Models;
 using System.Diagnostics;
 
@@ -7,7 +8,7 @@ namespace projekt.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _db;
-    
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
@@ -21,7 +22,7 @@ namespace projekt.Controllers
             IEnumerable<Produkt> produktLista = _db.Produkty.ToList();
             return View(produktLista);
         }
-
+        
         public IActionResult Privacy()
         {
             return View();

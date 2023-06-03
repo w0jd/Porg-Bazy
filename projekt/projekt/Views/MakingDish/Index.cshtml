@@ -1,0 +1,63 @@
+﻿@model IEnumerable<projekt.Models.Produkt>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nazwa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kaloryczność)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Białko)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tłuszcz)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Węglowodany)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Błonnik)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kaloryczność)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Białko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tłuszcz)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Węglowodany)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Błonnik)
+            </td>
+            <td>
+               <input type="checkbox" name="checkbox" value="show password" onclick="">  
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
