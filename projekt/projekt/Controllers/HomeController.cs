@@ -18,9 +18,8 @@ namespace projekt.Controllers
         }
 
         public IActionResult Index()
-        {
-            IEnumerable<Produkt> produktLista = _db.Produkty.ToList();
-            return View(produktLista);
+        {  
+            return View();
         }
         
         public IActionResult Privacy()

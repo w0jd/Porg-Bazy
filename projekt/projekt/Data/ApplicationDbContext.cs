@@ -12,5 +12,6 @@ namespace Projekt.Data
         }
         public DbSet<Produkt> Produkty { get; set; }
         public DbSet<Konto> Konta{ get; set; }
+        public DbSet<Dania> Dania { get; set; }
     }
 }
