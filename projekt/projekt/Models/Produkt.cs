@@ -8,15 +8,15 @@
         [StringLength(maximumLength: 61)]
         public string ?Nazwa { get; set; }
         [StringLength(maximumLength: 12)]
-        public string ? Kaloryczność { get;set; }
+        public float ? Kaloryczność { get;set; }
         [StringLength(maximumLength: 6)]
-        public string ? Białko { get; set; }
+        public float ? Białko { get; set; }
         [StringLength(maximumLength: 7)]
-        public string ? Tłuszcz { get; set; }
+        public float ? Tłuszcz { get; set; }
         [StringLength(maximumLength: 11)]
-        public string ? Węglowodany { get; set; }
+        public float ? Węglowodany { get; set; }
         [StringLength(maximumLength: 7)]
-        public string ? Błonnik { get; set; }
+        public float ? Błonnik { get; set; }
        
     }
 }
