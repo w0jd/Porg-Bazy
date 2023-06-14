@@ -1,3 +1,5 @@
+using projekt.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +7,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+builder.Services.AddScoped<IDataMealsService, DataMealsService>(); //nie dzia³¹ service do pobierania listy dan, zeby nie ladowa³o sie ta dlugo przy wejsciu na stronie z daniamia
+//builder.Services.Add(DataProductService);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

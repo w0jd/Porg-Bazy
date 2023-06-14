@@ -3,24 +3,6 @@
 @{
     ViewData["Title"] = "View";
 }
-<style>
-.container {
-        overflow: hidden;
-}
-.left-div{
-    width:50%;
-
-    float:left
-}
-
-    .right-div {
-        width: 50%;
-        height:100%;
-        overflow: hidden;
-    }
-</style>
-
-
 
 <div class="container">
     <div class="left-div">
@@ -70,22 +52,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Błonnik)
                         </td>
-                        <td>
-                            <input type="checkbox" name="checkbox" value="show password" onclick="">
-                        </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-    <div class ="right-div">
-        <select multiple>
-            <option>Posilek 1</option>
-            <option>Posilek 2</option>
-            <option>Posilek 3</option>
-        </select>
 
 
-    </div>
    
 </div>

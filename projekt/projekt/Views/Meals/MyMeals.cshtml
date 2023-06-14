@@ -1,0 +1,89 @@
+﻿@model IEnumerable<projekt.Models.Produkt>
+
+@{
+    ViewData["Title"] = "View";
+}
+<style>
+    .container{
+        display: flex;
+        flex-direction: row;
+    }
+    .left-div{
+        background-color: lightblue;
+        width:50%;
+        margin-right:2%;
+    }
+
+    .right-div {
+        background-color: lightcoral;
+        width: 50%;
+    }
+
+
+
+</style>
+
+<div class="container">
+    <div class="left-div">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nazwa)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Kaloryczność)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Białko)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tłuszcz)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Węglowodany)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Błonnik)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nazwa)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Kaloryczność)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Białko)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tłuszcz)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Węglowodany)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Błonnik)
+                        </td>
+                        <td>
+                            <input type="checkbox"  onclick="">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="right-div" >
+        <strong>Moje posiłki</strong>
+
+    </div>
+
+
+
+</div>
