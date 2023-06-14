@@ -1,7 +1,9 @@
-﻿@model IEnumerable<projekt.Models.Produkt>
+﻿@*@model IEnumerable<projekt.Models.Produkt>*@
+@model Tuple<IEnumerable<projekt.Models.Produkt>, IEnumerable<projekt.Models.Dania>>
 
 @{
     ViewData["Title"] = "View";
+    
 }
 <style>
     .container{
@@ -27,30 +29,31 @@
     <div class="left-div">
         <table class="table">
             <thead>
-                <tr>
+                <tr>      
+                    
                     <th>
-                        @Html.DisplayNameFor(model => model.Nazwa)
+                        Nazwa produktu
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Kaloryczność)
+                        Kaloryczność
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Białko)
+                        Białko
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Tłuszcz)
+                        Tłuszcz
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Węglowodany)
+                        Węglowodany
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Błonnik)
+                        Błonnik
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Item1)
                 {
                     <tr>
                         <td>
@@ -80,7 +83,48 @@
         </table>
     </div>
     <div class="right-div" >
-        <strong>Moje posiłki</strong>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>
+                        Nazwa dania
+                    </th>
+                    <th>
+                        Kaloryczność
+                    </th>
+                    <th>
+                        Białko
+                    </th>
+                    <th>
+                        Tłuszcz
+                    </th>
+                    <th>
+                        Węglowodany
+                    </th>
+                    <th>
+                        Błonnik
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Item2)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NazwaDania)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <input type="checkbox" onclick="">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
     </div>
 

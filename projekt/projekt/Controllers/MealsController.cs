@@ -26,8 +26,20 @@ namespace projekt.Controllers
 
         public IActionResult MyMeals()
         {
+            //var collection1 = GetCollection1Data();
+            //var collection2 = GetCollection2Data();
+            //var additionalData = GetAdditionalData();
+
+            //var model = Tuple.Create(collection1, additionalData);
+
+            //return View(model);
+            
+
             var products = _dataMealsService.GetProducts();
-            return View(products );
+            var meals = _dataMealsService.GetMeals();
+
+            var products_and_meals = Tuple.Create(products, meals);
+            return View(products_and_meals );
         }
     }
 }
