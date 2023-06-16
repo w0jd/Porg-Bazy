@@ -41,5 +41,20 @@ namespace projekt.Controllers
             var products_and_meals = Tuple.Create(products, meals);
             return View(products_and_meals );
         }
+
+        public IActionResult GetItems(string searchTerm)
+        {
+            // Przykładowe dane
+            var items = new List<string> { "Element 1", "Element 2", "Element 3" };
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                items = items.Where(item => item.Contains(searchTerm)).ToList();
+            }
+
+            return Json(items);
+        }
+
+
     }
 }

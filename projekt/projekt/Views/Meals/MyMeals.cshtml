@@ -7,7 +7,7 @@
 }
 <style>
     .container{
-        display: flex;
+        
         flex-direction: row;
     }
     .left-div{
@@ -26,63 +26,16 @@
 </style>
 
 <div class="container">
+    
+    <input placeholder="Podaj nazwę dania">
+    <button>Dodaj</button>
     <div class="left-div">
-        <table class="table">
-            <thead>
-                <tr>      
-                    
-                    <th>
-                        Nazwa produktu
-                    </th>
-                    <th>
-                        Kaloryczność
-                    </th>
-                    <th>
-                        Białko
-                    </th>
-                    <th>
-                        Tłuszcz
-                    </th>
-                    <th>
-                        Węglowodany
-                    </th>
-                    <th>
-                        Błonnik
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Item1)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nazwa)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Kaloryczność)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Białko)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Tłuszcz)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Węglowodany)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Błonnik)
-                        </td>
-                        <td>
-                            <input type="checkbox"  onclick="">
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
     </div>
     <div class="right-div" >
+
+        
+       
+
         <table class="table">
             <thead>
                 <tr>
