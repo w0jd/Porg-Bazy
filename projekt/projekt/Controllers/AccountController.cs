@@ -23,12 +23,13 @@ namespace projekt.Controllers
             if (user == null)
             {
                 TempData["success"] = "user not found";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
+
             }
             if (user.Haslo != request.Haslo)
             {
                 TempData["success"] = "złe hasło";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
             }
             await SignInUser(user.Nazwa);
             var username = HttpContext.User.Identity.Name;

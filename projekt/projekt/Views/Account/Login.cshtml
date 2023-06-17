@@ -32,5 +32,11 @@
         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">
             <input type="button" value="Zarejestruj się" />
         </a>
+        @{
+            if (TempData["success"] != null)
+            {
+                <p class="text-danger">@TempData["success"]</p>
+            }
+        }
     </form>
 </div>
