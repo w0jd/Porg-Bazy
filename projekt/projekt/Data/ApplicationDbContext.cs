@@ -35,12 +35,12 @@ namespace Projekt.Data
                 .HasForeignKey(pc => pc.IdProduktu);
 
             modelBuilder.Entity<Dania>()
-                .HasMany(c => c.DaniaProduktiy)
+                .HasMany(c => c.DaniaProdukty)
                 .WithOne(pc => pc.Dania)
                 .HasForeignKey(pc => pc.IdDania);
 
             modelBuilder.Entity<DaniaProdukty>()
-                .HasKey(pc => new { pc.IdProduktu, pc.Dania });
+                .HasKey(pc => new { pc.IdProduktu, pc.IdDania });
         }
 
     }

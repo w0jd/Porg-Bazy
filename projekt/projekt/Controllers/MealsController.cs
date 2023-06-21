@@ -9,13 +9,14 @@ namespace projekt.Controllers
 
         private readonly IDataMealsService _dataMealsService;
 
-    
-        
-        public MealsController(IDataMealsService DataProductService)
+        private readonly ApplicationDbContext _db;
+
+
+        public MealsController(IDataMealsService DataProductService, ApplicationDbContext db)
         {
             _dataMealsService = DataProductService;
-      
-          
+
+            _db = db;
         }
 
         public IActionResult Products()
