@@ -16,6 +16,12 @@ namespace projekt.Controllers
         {
             return View();
         }
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Verify(LoginModel request)
         {

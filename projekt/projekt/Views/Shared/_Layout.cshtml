@@ -51,7 +51,7 @@
                               <a class="nav-link text-dark">@HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value</a>
                             </li>
                             <li class="nav-item">
-                                 <a class="nav-link text-dark" action="Logout">Wyloguj</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Wyloguj</a>
                             </li>
 
                             <li class="nav-item" style="position: relative;">
