@@ -9,4 +9,6 @@ public partial class Dania
     public int Id { get; set; }
 
     public string NazwaDania { get; set; } = null!;
+    public ICollection<Jadlospis> Jadlospisy { get; set; }
+    public ICollection<DaniaProdukty> DaniaProduktiy { get; set; }
 }

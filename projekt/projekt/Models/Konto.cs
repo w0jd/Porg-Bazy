@@ -10,5 +10,6 @@
         public string Nazwa { get; set; }
         [Required]
         public string Haslo { get; set; }
+        public ICollection<Jadlospis> Jadlospisy { get; set; }
     }
 }
