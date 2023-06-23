@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
 
 using projekt.Models;
 
@@ -11,6 +11,26 @@ namespace projekt.Controllers
         {
             _context = context;
         }//połączenie z bazą
+        public IActionResult Index()
+        {
+            var currentDate = DateOnly.FromDateTime(DateTime.Now);
+            var userName = User.FindFirst(ClaimTypes.Name).Value;
+            var acc = _context.Konta.FirstOrDefault(a=>a.Nazwa==userName);
+            var jadlo = _context.Jadlospis.FirstOrDefault(a => a.IdKonta == acc.Id && a.Dzień == currentDate) ;
+            var danie = _context.Dania.Find( jadlo.IdDania);
+            var dapro=_context.DaniaProdukty.FirstOrDefault(a=>a.IdDania==danie.Id);
+            var produkt = _context.Produkty.Find(dapro.IdProduktu);
+            var result = new ModelCalosci
+            {
+                Konto = acc,
+                Jadlo = jadlo,
+                Dania = danie,
+                DaniaProdukty = dapro,
+                Produkt = produkt
+            };
+
+            return View(result);
+        }
         [HttpGet]
         public IActionResult Login()
         {

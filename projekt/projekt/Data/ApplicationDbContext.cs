@@ -13,7 +13,8 @@ namespace Projekt.Data
         public DbSet<Produkt> Produkty { get; set; }
         public DbSet<Konto> Konta{ get; set; }
         public DbSet<Dania> Dania { get; set; }
-        public DbSet<Jadlospis> Jadlospisy { get; set; }
+        public DbSet<Jadlospis> Jadlospis { get; set; }
+        public DbSet<DaniaProdukty> DaniaProdukty { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Konto>()
