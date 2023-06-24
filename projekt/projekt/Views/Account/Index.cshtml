@@ -5,8 +5,27 @@
 @{
 
   <p>@Model.Konto.Nazwa</p>
-  <p>@Html.DisplayFor(item=>item.Dania.NazwaDania)</p>
-  <p>@Html.DisplayFor(item=>item.Produkt)</p>
-  <p>@Html.DisplayFor(item=>item.Jadlo.Dzień)</p>
+  <table>
+    <thead>
+        <tr>
+            <th>Nazwa produktu</th>
+            <th>Kaloryczność</th>
+            <th>Białko</th>
+            <th>Tłuszcz</th>
+            <th>Węglowodany</th>
+            <th>Błonnik</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td>@Html.DisplayFor(item => item.Dania.NazwaDania)</td>
+                <td>@Html.DisplayFor(item => item.Produkt.Kaloryczność)</td>
+                <td>@Html.DisplayFor(item => item.Produkt.Białko)</td>
+                <td>@Html.DisplayFor(item =>  item.Produkt.Tłuszcz)</td>
+                <td>@Html.DisplayFor(item => item.Produkt.Węglowodany)</td>
+                <td>@Html.DisplayFor(item =>  item.Produkt.Błonnik)</td>
+            </tr>
+</tbody>
+</table>
 
 }
