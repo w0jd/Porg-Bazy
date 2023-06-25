@@ -15,7 +15,7 @@ namespace projekt.Controllers
         {
             var currentDate = DateOnly.FromDateTime(DateTime.Now);
             var userName = User.FindFirst(ClaimTypes.Name).Value;
-
+           // var dat = currentDate.AddDays(-1);
             var wyniki = _context.Konta
                 .Where(a => a.Nazwa == userName)
                 .Include(acc => acc.Jadlospisy.Where(a=>a.Dzień==currentDate))
