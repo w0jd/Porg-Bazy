@@ -17,6 +17,6 @@
         public float ? Węglowodany { get; set; }
         [StringLength(maximumLength: 7)]
         public float ? Błonnik { get; set; }
-       
+       public ICollection<DaniaProdukty> DaniaProdukty { get; set; }
     }
 }

@@ -2,8 +2,15 @@
 @model Tuple<IEnumerable<projekt.Models.Produkt>, IEnumerable<projekt.Models.Dania>>
 
 @{
-    ViewData["Title"] = "View";
-    
+    ViewData["Title"] = "MyMeals";
+    ViewBag.Controller = "Meals";
+    Pager pager = new Pager();
+    int pageNr = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNr = pager.CurrentPage;
+    }
 }
 <style>
     .container{
@@ -122,6 +129,6 @@
 
     </div>
 
-
+    <partial name="_pager" model="@pager" />
 
 </div>

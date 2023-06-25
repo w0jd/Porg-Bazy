@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
 
 using projekt.Models;
 
@@ -11,11 +11,32 @@ namespace projekt.Controllers
         {
             _context = context;
         }//połączenie z bazą
+        public IActionResult Index()
+        {
+            var currentDate = DateOnly.FromDateTime(DateTime.Now);
+            var userName = User.FindFirst(ClaimTypes.Name).Value;
+           // var dat = currentDate.AddDays(-1);
+            var wyniki = _context.Konta
+                .Where(a => a.Nazwa == userName)
+                .Include(acc => acc.Jadlospisy.Where(a=>a.Dzień==currentDate))
+                .ThenInclude(jadlo => jadlo.Dania)
+                .ThenInclude(danie => danie.DaniaProdukty)
+                .ThenInclude(dapro => dapro.Produkty);
+   
+
+            return View(wyniki);
+        }
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Verify(LoginModel request)
         {

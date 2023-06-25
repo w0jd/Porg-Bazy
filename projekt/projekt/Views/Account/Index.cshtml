@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Konto>
+@{
+    float? kcal = 0;
+}
+<table>
+    <thead>
+        <tr>
+            <th>Nazwa dania</th>
+            <th>Nazwa produktu</th>
+            <th>Kaloryczność</th>
+            <!-- Dodaj inne kolumny, jeśli są wymagane -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var konto in Model)
+        {
+            @foreach (var jadlo in konto?.Jadlospisy)
+            {
+                @foreach (var dapro in jadlo?.Dania?.DaniaProdukty)
+                {
+                    
+                    <tr>
+                        <td>@jadlo.Dania.NazwaDania</td>
+                        <td>@dapro.Produkty.Nazwa</td>
+                        <td>@dapro.Produkty.Kaloryczność</td>
+                        <!-- Dodaj wartości dla innych kolumn -->
+                        @{
+                            kcal += dapro.Produkty.Kaloryczność;
+                        }
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+<p> ilość dzisiejszych kalori: @kcal</p>
+    
+    <div>
+        @foreach (var konto in Model)
+        {
+            @foreach (var jadlo in konto?.Jadlospisy)
+            {
+                <p name="dzien">@jadlo.Dzień</p>
+            <form method="post" asp-controller="Date" asp-action="poprzedni">
+                    <input style="display:none" type="text" name="czas" value="@jadlo.Dzień" >
+                <button type="submit">poprzedni</button>
+                </form>
+                @if (jadlo.Dzień != DateOnly.FromDateTime(DateTime.Now))
+                {
+                <form method="post" asp-controller="Date" asp-action="nastepny">
+                    <input style="display:none" type="text" name="czas" value="@jadlo.Dzień">
+
+                    <button type="submit">nastepny</button>
+                </form>
+                }
+            break;
+
+            }
+        }
+    </div>
+
+<a asp-controller="UserMeals" asp-action="Index">zobacz wszytkie włąsne posiłki</a>

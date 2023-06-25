@@ -9,7 +9,7 @@ builder.Services.AddHttpContextAccessor();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
-builder.Services.AddScoped<IDataMealsService, DataMealsService>(); //nie dzia³¹ service do pobierania listy dan, zeby nie ladowa³o sie ta dlugo przy wejsciu na stronie z daniamia
+builder.Services.AddScoped<IDataMealsService, DataMealsService>(); //nie dziaï¿½ï¿½ service do pobierania listy dan, zeby nie ladowaï¿½o sie ta dlugo przy wejsciu na stronie z daniamia
 //builder.Services.Add(DataProductService);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
