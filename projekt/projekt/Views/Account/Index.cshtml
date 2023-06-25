@@ -1,31 +1,29 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model ModelCalosci
-@{
+﻿@model IEnumerable<Konto>
 
-  <p>@Model.Konto.Nazwa</p>
-  <table>
+<table>
     <thead>
         <tr>
+            <th>Nazwa dania</th>
             <th>Nazwa produktu</th>
             <th>Kaloryczność</th>
-            <th>Białko</th>
-            <th>Tłuszcz</th>
-            <th>Węglowodany</th>
-            <th>Błonnik</th>
+            <!-- Dodaj inne kolumny, jeśli są wymagane -->
         </tr>
     </thead>
     <tbody>
-            <tr>
-                <td>@Html.DisplayFor(item => item.Dania.NazwaDania)</td>
-                <td>@Html.DisplayFor(item => item.Produkt.Kaloryczność)</td>
-                <td>@Html.DisplayFor(item => item.Produkt.Białko)</td>
-                <td>@Html.DisplayFor(item =>  item.Produkt.Tłuszcz)</td>
-                <td>@Html.DisplayFor(item => item.Produkt.Węglowodany)</td>
-                <td>@Html.DisplayFor(item =>  item.Produkt.Błonnik)</td>
-            </tr>
-</tbody>
+        @foreach (var konto in Model)
+        {
+            @foreach (var jadlo in konto.Jadlospisy)
+            {
+                @foreach (var dapro in jadlo.Dania.DaniaProdukty)
+                {
+                    <tr>
+                        <td>@jadlo.Dania.NazwaDania</td>
+                        <td>@dapro.Produkty.Nazwa</td>
+                        <td>@dapro.Produkty.Kaloryczność</td>
+                        <!-- Dodaj wartości dla innych kolumn -->
+                    </tr>
+                }
+            }
+        }
+    </tbody>
 </table>
-
-}

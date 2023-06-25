@@ -15,27 +15,16 @@ namespace projekt.Controllers
         {
             var currentDate = DateOnly.FromDateTime(DateTime.Now);
             var userName = User.FindFirst(ClaimTypes.Name).Value;
-            var acc = _context.Konta.FirstOrDefault(a=>a.Nazwa==userName);
-            var jadlo = _context.Jadlospis.FirstOrDefault(a => a.IdKonta == acc.Id && a.Dzień == currentDate) ;
-            var danie = _context.Dania.Find(jadlo?.IdDania);
-            var dapro=_context.DaniaProdukty.FirstOrDefault(a=>a.IdDania==danie.Id);
-            var produkt = _context.Produkty.Find(dapro?.IdProduktu);
+
             var wyniki = _context.Konta
                 .Where(a => a.Nazwa == userName)
                 .Include(acc => acc.Jadlospisy.Where(a=>a.Dzień==currentDate))
                 .ThenInclude(jadlo => jadlo.Dania)
                 .ThenInclude(danie => danie.DaniaProdukty)
                 .ThenInclude(dapro => dapro.Produkty);
-            var result = new ModelCalosci
-            {
-                Konto = acc,
-                Jadlo = jadlo,
-                Dania = danie,
-                DaniaProdukty = dapro,
-                Produkt = produkt
-            };
+   
 
-            return View(result);
+            return View(wyniki);
         }
         [HttpGet]
         public IActionResult Login()
