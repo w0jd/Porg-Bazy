@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Konto>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nazwa dania</th>
+            <th>Nazwa produktu</th>
+            <th>Kaloryczność</th>
+            <!-- Dodaj inne kolumny, jeśli są wymagane -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var konto in Model)
+        {
+            @foreach (var jadlo in konto.Jadlospisy)
+            {
+                @foreach (var dapro in jadlo.Dania.DaniaProdukty)
+                {
+                    <tr>
+                        <td>@jadlo.Dania.NazwaDania</td>
+                        <td>@dapro.Produkty.Nazwa</td>
+                        <td>@dapro.Produkty.Kaloryczność</td>
+                        <!-- Dodaj wartości dla innych kolumn -->
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
