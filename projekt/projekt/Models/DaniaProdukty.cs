@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 
 namespace projekt.Models;
-
+[Keyless]
 public partial class DaniaProdukty
 {
+    
     [ForeignKey("IdProduktu")]
     public int IdProduktu { get; set; }
 

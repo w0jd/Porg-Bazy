@@ -27,8 +27,34 @@
 
 <div class="container">
     
-    <input placeholder="Podaj nazwę dania">
-    <button>Dodaj</button>
+
+
+
+   @* @using (Html.BeginForm("AddingMeals", "Meals", FormMethod.Post))
+    {
+        
+        <div>
+            
+            @Html.TextBoxFor(model => model.Item2, new { id = "txtPlace", Value= "3" })
+            <input id="txtPlace" type="submit" value="Dodaj" />
+        </div>
+
+        
+    }*@
+
+    @using (Html.BeginForm("AddingMeals", "Meals", FormMethod.Post))
+    {
+        <div>
+            <button>Add</button>
+        </div>
+    }
+
+
+
+
+
+    @*<input placeholder="Podaj nazwę dania">
+    <button type="submit">Dodaj</button>*@
     <div class="left-div">
     </div>
     <div class="right-div" >
@@ -41,7 +67,7 @@
                 <tr>
 
                     <th>
-                        Nazwa dania
+                        Nazwa
                     </th>
                     <th>
                         Kaloryczność
@@ -69,10 +95,25 @@
                             @Html.DisplayFor(modelItem => item.NazwaDania)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Id)
+                            @Html.DisplayFor(modelItem => item.Id)  @*Tymczasowo ID*@
                         </td>
                         <td>
-                            <input type="checkbox" onclick="">
+                            0 @*Białko*@
+                        </td>
+                        <td>
+                            0 @*Tłuszcz*@
+                        </td>
+                        <td>
+                            0 @*Węglowodany*@
+                        </td>
+                        <td>
+                            0 @*Błonnik*@
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Details","Meals", new { Id = item.Id})">Szczegóły</a>
+                        </td>
+                        <td>
+                            <a>Usuń</a> 
                         </td>
                     </tr>
                 }
