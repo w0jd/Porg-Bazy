@@ -1,11 +1,20 @@
 ﻿@model IEnumerable<Konto>
-
+<style>
+    .podk{
+        border:solid;
+        text-align: center;
+    }
+    .granica{
+        border-left:solid;
+        text-align:center;
+    }
+</style>
 <table>
     <thead>
         <tr>
-            <th>Nazwa dania</th>
+            
             <th>Nazwa produktu</th>
-            <th>Kaloryczność</th>
+            <th class="granica">Kaloryczność</th>
             <!-- Dodaj inne kolumny, jeśli są wymagane -->
         </tr>
     </thead>
@@ -14,12 +23,13 @@
         {
             @foreach (var jadlo in konto?.Jadlospisy)
             {
+                <tr class="podk"> <td>@jadlo.Dania.NazwaDania</td></tr>
                 @foreach (var dapro in jadlo?.Dania.DaniaProdukty)
                 {
                     <tr>
-                        <td>@jadlo.Dania.NazwaDania</td>
+                       
                         <td>@dapro.Produkty.Nazwa</td>
-                        <td>@dapro.Produkty.Kaloryczność</td>
+                        <td class="granica">@dapro.Produkty.Kaloryczność</td>
                         <!-- Dodaj wartości dla innych kolumn -->
                     </tr>
                 }
