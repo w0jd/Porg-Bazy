@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Konto>
-
+@{
+    float? kcal = 0;
+}
 <table>
     <thead>
         <tr>
@@ -12,18 +14,24 @@
     <tbody>
         @foreach (var konto in Model)
         {
-            @foreach (var jadlo in konto.Jadlospisy)
+            @foreach (var jadlo in konto?.Jadlospisy)
             {
-                @foreach (var dapro in jadlo.Dania.DaniaProdukty)
+                @foreach (var dapro in jadlo?.Dania?.DaniaProdukty)
                 {
+                    
                     <tr>
                         <td>@jadlo.Dania.NazwaDania</td>
                         <td>@dapro.Produkty.Nazwa</td>
                         <td>@dapro.Produkty.Kaloryczność</td>
                         <!-- Dodaj wartości dla innych kolumn -->
+                        @{
+                            kcal += dapro.Produkty.Kaloryczność;
+                        }
                     </tr>
                 }
             }
         }
     </tbody>
 </table>
+<p> ilość dzisiejszych kalori: @kcal</p>
+<a asp-controller="UserMeals" asp-action="Index">zobacz wszytkie włąsne posiłki</a>

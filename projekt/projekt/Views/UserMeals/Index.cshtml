@@ -12,9 +12,9 @@
     <tbody>
         @foreach (var konto in Model)
         {
-            @foreach (var jadlo in konto.Jadlospisy)
+            @foreach (var jadlo in konto?.Jadlospisy)
             {
-                @foreach (var dapro in jadlo.Dania.DaniaProdukty)
+                @foreach (var dapro in jadlo?.Dania.DaniaProdukty)
                 {
                     <tr>
                         <td>@jadlo.Dania.NazwaDania</td>
