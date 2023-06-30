@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace projekt.Models;
-[Keyless]
+
 public partial class DaniaProdukty
 {
     

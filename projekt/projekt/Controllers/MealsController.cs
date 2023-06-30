@@ -129,7 +129,7 @@ namespace projekt.Controllers
             //return View(model);
 
 
-            //var products = _dataMealsService.GetProducts();
+            var products = _dataMealsService.GetProducts();
             var meals = _dataMealsService.GetMeals();
 
             var products_and_meals = Tuple.Create(products, meals);
