@@ -13,16 +13,17 @@ namespace projekt.Controllers
         }//połączenie z bazą
         public IActionResult Index()
         {
+            ViewData["Date"]= DateOnly.FromDateTime(DateTime.Now);
             var currentDate = DateOnly.FromDateTime(DateTime.Now);
             var userName = User.FindFirst(ClaimTypes.Name).Value;
-           // var dat = currentDate.AddDays(-1);
+            // var dat = currentDate.AddDays(-1);
             var wyniki = _context.Konta
                 .Where(a => a.Nazwa == userName)
-                .Include(acc => acc.Jadlospisy.Where(a=>a.Dzień==currentDate))
+                .Include(acc => acc.Jadlospisy.Where(a => a.Dzień == currentDate))
                 .ThenInclude(jadlo => jadlo.Dania)
                 .ThenInclude(danie => danie.DaniaProdukty)
                 .ThenInclude(dapro => dapro.Produkty);
-   
+
 
             return View(wyniki);
         }

@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Konto>
 @{
     float? kcal = 0;
+    DateOnly date;
+    DateOnly.TryParse(@ViewData["Date"]?.ToString(), out date);
 }
 <table>
     <thead>
@@ -36,27 +38,21 @@
 <p> ilość dzisiejszych kalori: @kcal</p>
     
     <div>
-        @foreach (var konto in Model)
-        {
-            @foreach (var jadlo in konto?.Jadlospisy)
-            {
-                <p name="dzien">@jadlo.Dzień</p>
+ 
+                <p name="dzien">@ViewData["Date"]</p>
             <form method="post" asp-controller="Date" asp-action="poprzedni">
-                    <input style="display:none" type="text" name="czas" value="@jadlo.Dzień" >
+                <input style="display:none" type="text" name="czas" value="@ViewData["Date"]">
                 <button type="submit">poprzedni</button>
                 </form>
-                @if (jadlo.Dzień != DateOnly.FromDateTime(DateTime.Now))
+            @if (@date != DateOnly.FromDateTime(DateTime.Now))
                 {
                 <form method="post" asp-controller="Date" asp-action="nastepny">
-                    <input style="display:none" type="text" name="czas" value="@jadlo.Dzień">
+                    <input style="display:none" type="text" name="czas" value="@ViewData["Date"]">
 
                     <button type="submit">nastepny</button>
                 </form>
                 }
-            break;
-
-            }
-        }
+    
     </div>
 
 <a asp-controller="UserMeals" asp-action="Index">zobacz wszytkie włąsne posiłki</a>
