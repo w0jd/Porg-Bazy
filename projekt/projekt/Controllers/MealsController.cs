@@ -157,11 +157,10 @@ namespace projekt.Controllers
             return View(mealdetails);
         }
 
-        [HttpPost]
-        public IActionResult AddingMeals (Dania danie)
-        {
-            
-            return View(danie);
+        
+        public IActionResult AddingMeals ()
+        {          
+            return View();
         }
 
         [HttpPost]

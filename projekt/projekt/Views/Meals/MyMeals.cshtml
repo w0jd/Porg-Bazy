@@ -1,6 +1,6 @@
 ﻿@*@model IEnumerable<projekt.Models.Produkt>*@
 @model Tuple<IEnumerable<projekt.Models.Produkt>, IEnumerable<projekt.Models.Dania>>
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
 @{
@@ -26,34 +26,29 @@
         margin-right:2%;
     }
 
-    /*.right-div { 
-        width: 50%;
-    }*/
+    
 
 
 
 </style>
 
-@using (Html.BeginForm("AddingMeals", "Meals", FormMethod.Post))
-{
+
+
     <div>
-        <button>Add</button>
+    <a asp-action="AddingMeals">
+        
+            <span class="btn btn-sm btn-outline-primary">
+                <i class="fa fa-plus" style="color: #52b94b;"></i>
+            </span>
+        </a>
     </div>
-}
+
 
 
 
 
 <div class="container">
-   @* @using (Html.BeginForm("AddingMeals", "Meals", FormMethod.Post))
-    {
-        
-        <div>
-            
-            @Html.TextBoxFor(model => model.Item2, new { id = "txtPlace", Value= "3" })
-            <input id="txtPlace" type="submit" value="Dodaj" />
-        </div>       
-    }*@
+   
 
 
     <partial name="_pager" model="@pager" />
@@ -118,7 +113,8 @@
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </span>
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@item.Id">
+                                <a asp-action="MealsController/Delete" asp-route-id="@item.Id">
+                                    
                                     <span class="btn btn-sm btn-outline-danger">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </span>
@@ -131,7 +127,7 @@
                 }
             </tbody>
         </table>
-
+        
     </div>
 
     <partial name="_pager" model="@pager" />

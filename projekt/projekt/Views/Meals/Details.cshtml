@@ -2,7 +2,87 @@
 
 <h1>Szczegóły dania</h1>
 
-@foreach (var item in Model)
-{
-    <h1>@item.Nazwa</h1>
+@{
+    decimal suma_kalorycznosc =0;
+    decimal suma_bialko= 0;
+    decimal suma_tluszcz = 0;
+    decimal suma_weglowodany = 0;
+    decimal suma_blonnik = 0;
+
+
 }
+    <div class="container">
+
+        
+        <div class="left-div">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nazwa)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Kaloryczność)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Białko)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Tłuszcz)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Węglowodany)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Błonnik)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                    suma_kalorycznosc += Convert.ToDecimal(item.Kaloryczność.GetValueOrDefault());
+                    suma_bialko += Convert.ToDecimal(item.Białko.GetValueOrDefault());
+                    suma_tluszcz += Convert.ToDecimal(item.Tłuszcz.GetValueOrDefault());
+                    suma_weglowodany += Convert.ToDecimal(item.Węglowodany.GetValueOrDefault());
+                    suma_blonnik += Convert.ToDecimal(item.Błonnik.GetValueOrDefault());
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nazwa)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Kaloryczność)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Białko)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tłuszcz)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Węglowodany)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Błonnik)
+                            </td>
+                        </tr>
+                    }
+                        <tr>
+                            <td><b>SUMA</b></td>
+                            <td><b>@suma_kalorycznosc</b></td>
+                            <td><b>@suma_bialko</b></td>
+                            <td><b>@suma_tluszcz</b></td>
+                            <td><b>@suma_weglowodany</b></td>
+                            <td><b>@suma_blonnik</b></td>
+                        </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+
+    </div>
+
