@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+*@
+@model IEnumerable<Konto>
+@{
+    
+
+}
+<label for="Date">Data</label>
+<input disabled type="text" name="czas" value="@ViewData["id"]">
+@foreach (var konto in Model)
+{
+        <fieldset>
+    @foreach (var jadlo in konto?.Jadlospisy)
+    {
+        
+        <legend>@jadlo.Dania.NazwaDania</legend>
+
+
+        @foreach (var dapro in jadlo?.Dania?.DaniaProdukty)
+        {
+                <br />
+
+                @* <td>@jadlo.Dania.NazwaDania</td>*@
+                <span>@dapro.Produkty.Nazwa</span>
+                <span>@dapro.Produkty.Kaloryczność</span>
+                <br />
+                <!-- Dodaj wartości dla innych kolumn -->
+           
+            
+        }
+          
+
+        <input style="display:none" value="@jadlo.Dania.Id">
+        <button>Wybierz</button>
+    }
+</fieldset>
+}

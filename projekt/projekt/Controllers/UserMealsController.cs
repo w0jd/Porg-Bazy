@@ -9,6 +9,21 @@ namespace projekt.Controllers
         {
             _context = context;
         }
+        public IActionResult AddExistingMeal(string id)
+        {
+           //DateOnly dat;
+            id=id.Replace("%2F", "/");
+            /*            DateOnly.TryParse(id, out dat);
+                        Console.WriteLine(dat);*/
+            ViewData["user"] = User.FindFirst(ClaimTypes.Name).Value;
+            var wyniki = _context.Konta
+               .Include(acc => acc.Jadlospisy)
+               .ThenInclude(jadlo => jadlo.Dania)
+               .ThenInclude(dapr => dapr.DaniaProdukty)
+               .ThenInclude(pr => pr.Produkty);
+            ViewData["id"] = id;
+            return View(wyniki);
+        }
         public IActionResult Index()
         {
             var currentDate = DateOnly.FromDateTime(DateTime.Now);

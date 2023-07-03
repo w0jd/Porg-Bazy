@@ -3,11 +3,12 @@
     float? kcal = 0;
     DateOnly date;
     DateOnly.TryParse(@ViewData["Date"]?.ToString(), out date);
+    string str = date.ToString();
 }
 <table>
     <thead>
         <tr>
-            <th>Nazwa dania</th>
+   
             <th>Nazwa produktu</th>
             <th>Kaloryczność</th>
             <!-- Dodaj inne kolumny, jeśli są wymagane -->
@@ -18,11 +19,14 @@
         {
             @foreach (var jadlo in konto?.Jadlospisy)
             {
+                <tr><td>@jadlo.Dania.NazwaDania</td></tr>
+
+                
                 @foreach (var dapro in jadlo?.Dania?.DaniaProdukty)
                 {
                     
                     <tr>
-                        <td>@jadlo.Dania.NazwaDania</td>
+                       @* <td>@jadlo.Dania.NazwaDania</td>*@
                         <td>@dapro.Produkty.Nazwa</td>
                         <td>@dapro.Produkty.Kaloryczność</td>
                         <!-- Dodaj wartości dla innych kolumn -->
@@ -36,13 +40,14 @@
     </tbody>
 </table>
 <p> ilość dzisiejszych kalori: @kcal</p>
-    
+  
     <div>
  
                 <p name="dzien">@ViewData["Date"]</p>
             <form method="post" asp-controller="Date" asp-action="poprzedni">
                 <input style="display:none" type="text" name="czas" value="@ViewData["Date"]">
                 <button type="submit">poprzedni</button>
+        
                 </form>
             @if (@date != DateOnly.FromDateTime(DateTime.Now))
                 {
@@ -56,3 +61,4 @@
     </div>
 
 <a asp-controller="UserMeals" asp-action="Index">zobacz wszytkie włąsne posiłki</a>
+<a asp-controller="UserMeals" asp-action="AddExistingMeal" asp-route-id="@date.ToString()">Dodaj brakujący posiłek</a>
