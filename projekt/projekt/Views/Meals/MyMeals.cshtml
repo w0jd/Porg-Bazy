@@ -1,6 +1,8 @@
 ﻿@*@model IEnumerable<projekt.Models.Produkt>*@
 @model Tuple<IEnumerable<projekt.Models.Produkt>, IEnumerable<projekt.Models.Dania>>
 
+
+
 @{
     ViewData["Title"] = "MyMeals";
     ViewBag.Controller = "Meals";
@@ -12,6 +14,7 @@
         pageNr = pager.CurrentPage;
     }
 }
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"> @*tutaj sa styl css do ikonek*@
 <style>
     .container{
         
@@ -19,24 +22,29 @@
     }
     .left-div{
         background-color: lightblue;
-        width:50%;
+        width:80%;
         margin-right:2%;
     }
 
-    .right-div {
-        background-color: lightcoral;
+    /*.right-div { 
         width: 50%;
-    }
+    }*/
 
 
 
 </style>
 
+@using (Html.BeginForm("AddingMeals", "Meals", FormMethod.Post))
+{
+    <div>
+        <button>Add</button>
+    </div>
+}
+
+
+
+
 <div class="container">
-    
-
-
-
    @* @using (Html.BeginForm("AddingMeals", "Meals", FormMethod.Post))
     {
         
@@ -44,31 +52,13 @@
             
             @Html.TextBoxFor(model => model.Item2, new { id = "txtPlace", Value= "3" })
             <input id="txtPlace" type="submit" value="Dodaj" />
-        </div>
-
-        
+        </div>       
     }*@
 
-    @using (Html.BeginForm("AddingMeals", "Meals", FormMethod.Post))
-    {
-        <div>
-            <button>Add</button>
-        </div>
-    }
 
-
-
-
-
-    @*<input placeholder="Podaj nazwę dania">
-    <button type="submit">Dodaj</button>*@
-    <div class="left-div">
-    </div>
-    <div class="right-div" >
-
+    <partial name="_pager" model="@pager" />
+    <div class="right-div" >  
         
-       
-
         <table class="table">
             <thead>
                 <tr>
@@ -117,11 +107,26 @@
                             0 @*Błonnik*@
                         </td>
                         <td>
-                            <a href="@Url.Action("Details","Meals", new { Id = item.Id})">Szczegóły</a>
+                            <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@item.Id">
+                                    <span class="btn btn-sm btn-outline-primary">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Id">
+                                    <span class="btn btn-sm btn-outline-dark">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id">
+                                    <span class="btn btn-sm btn-outline-danger">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                            </div>
                         </td>
-                        <td>
-                            <a>Usuń</a> 
-                        </td>
+                        
+                        
                     </tr>
                 }
             </tbody>
