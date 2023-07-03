@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using projekt.Models;
 
 namespace projekt.Controllers
 {
@@ -8,6 +9,22 @@ namespace projekt.Controllers
         public UserMealsController(ApplicationDbContext context)
         {
             _context = context;
+        }
+        [HttpPost]
+        public IActionResult AddExistingMealPost(int danie, string czas) {
+            var userName = User.FindFirst(ClaimTypes.Name).Value;
+            var wyniki = _context.Konta
+               .First(a => a.Nazwa == userName);
+            Jadlospis jadlospis = new Jadlospis();
+            DateOnly data = new DateOnly();
+            czas = TempData["czas"].ToString();
+            DateOnly.TryParse(czas, out data);
+            jadlospis.Dzień = data;
+            jadlospis.IdDania = danie;
+            jadlospis.IdKonta = wyniki.Id;
+            _context.Add(jadlospis);
+            _context.SaveChanges();
+            return View("../Account/Index");
         }
         public IActionResult AddExistingMeal(string id)
         {

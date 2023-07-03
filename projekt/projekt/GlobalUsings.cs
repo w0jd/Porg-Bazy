@@ -3,7 +3,7 @@ global using System.ComponentModel.DataAnnotations.Schema;
 global using Microsoft.EntityFrameworkCore;
 global using System.Net.NetworkInformation;
 //global using Projekt.Models;
-
+global using Microsoft.AspNetCore.Http;
 global using Projekt.Data;
 global using Microsoft.AspNetCore.Authentication.Cookies;
 global using Microsoft.Extensions.Configuration;
