@@ -1,9 +1,11 @@
-﻿@*@model IEnumerable<projekt.Models.Produkt>*@
-@model Tuple<IEnumerable<projekt.Models.Produkt>, IEnumerable<projekt.Models.Dania>>
+﻿@model Tuple<List<List<decimal>>, IEnumerable<projekt.Models.Dania>>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
 @{
+    List<List<decimal>> dania_detale_suma = new List<List<decimal>>();
+    dania_detale_suma.AddRange(Model.Item1);
+
     ViewData["Title"] = "MyMeals";
     ViewBag.Controller = "Meals";
     Pager pager = new Pager();
@@ -26,13 +28,7 @@
         margin-right:2%;
     }
 
-    
-
-
-
 </style>
-
-
 
     <div>
     <a asp-action="AddingMeals">
@@ -61,6 +57,7 @@
                     <th>
                         Nazwa
                     </th>
+                    
                     <th>
                         Kaloryczność
                     </th>
@@ -82,24 +79,29 @@
             <tbody>
                 @foreach (var item in Model.Item2)
                 {
+                List<decimal> wartosc = new List<decimal>();
+                    wartosc.AddRange(dania_detale_suma[0]);
+                    dania_detale_suma.RemoveAt(0);
+
+
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.NazwaDania)
+                        </td>                      
+                        <td>
+                            @wartosc.ElementAt(0)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Id)  @*Tymczasowo ID*@
+                            @wartosc.ElementAt(1)
                         </td>
                         <td>
-                            0 @*Białko*@
+                            @wartosc.ElementAt(2)
                         </td>
                         <td>
-                            0 @*Tłuszcz*@
+                            @wartosc.ElementAt(3)
                         </td>
                         <td>
-                            0 @*Węglowodany*@
-                        </td>
-                        <td>
-                            0 @*Błonnik*@
+                            @wartosc.ElementAt(4)
                         </td>
                         <td>
                             <div class="btn-group">

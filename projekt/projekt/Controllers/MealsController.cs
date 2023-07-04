@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using projekt.Models;
 using projekt.Services;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace projekt.Controllers
 {
@@ -128,12 +129,43 @@ namespace projekt.Controllers
 
             //return View(model);
 
+            List<List<decimal>> dania_detale_suma = new List<List<decimal>>();
 
             var products = _dataMealsService.GetProducts();
             var meals = _dataMealsService.GetMeals();
 
-            var products_and_meals = Tuple.Create(products, meals);
-            return View(products_and_meals);
+            foreach (var item in meals) {
+                var meal_products = _dataMealsService.GetMealsDetails(item.Id);
+                var list_ilosc = _dataMealsService.GetJadlospis(item.Id);
+                List<decimal> suma_dla_dania = new List<decimal>();
+
+                foreach (var product in meal_products)
+                {
+                    var ilosc = list_ilosc[0];
+                    list_ilosc.RemoveAt(0);
+                    if (suma_dla_dania.Count!=0)
+                    {
+                    suma_dla_dania[0]+=(Convert.ToDecimal(product.Kaloryczność) * ilosc / 100);
+                    suma_dla_dania[1]+=(Convert.ToDecimal(product.Białko) * ilosc / 100);
+                    suma_dla_dania[2]+=(Convert.ToDecimal(product.Tłuszcz) * ilosc / 100);
+                    suma_dla_dania[3]+=(Convert.ToDecimal(product.Węglowodany) * ilosc / 100);
+                    suma_dla_dania[4]+=(Convert.ToDecimal(product.Błonnik) * ilosc / 100);
+                    }
+                    suma_dla_dania.Add(Convert.ToDecimal(product.Kaloryczność)*ilosc/100);
+                    suma_dla_dania.Add(Convert.ToDecimal(product.Białko) * ilosc / 100);
+                    suma_dla_dania.Add(Convert.ToDecimal(product.Tłuszcz) * ilosc / 100);
+                    suma_dla_dania.Add(Convert.ToDecimal(product.Węglowodany) * ilosc / 100);
+                    suma_dla_dania.Add(Convert.ToDecimal(product.Błonnik) * ilosc / 100);
+
+
+                }
+                dania_detale_suma.Add(suma_dla_dania);      
+            }
+
+
+
+            var products_meals = Tuple.Create(dania_detale_suma, meals);
+            return View(products_meals);
         }
         [HttpPost]
         public IActionResult GetItems(string searchTerm)
@@ -153,13 +185,23 @@ namespace projekt.Controllers
         [HttpGet]
         public IActionResult Details(int id) // id elementu ktory chcemy pobra z bazy danych
         {
-            var mealdetails = _dataMealsService.GetMealsDetails(id);
-            return View(mealdetails);
+            string nazwa = _dataMealsService.GetMealName(id);
+            var meal_products = _dataMealsService.GetMealsDetails(id);
+            var list_ilosc = _dataMealsService.GetJadlospis(id);
+            
+
+            var products_meals = Tuple.Create(meal_products, list_ilosc, nazwa);
+
+            return View(products_meals);
         }
 
         
         public IActionResult AddingMeals ()
         {          
+            return View();
+        }
+        public IActionResult Create () {
+            
             return View();
         }
 

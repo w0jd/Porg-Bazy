@@ -1,77 +1,89 @@
-﻿@model IEnumerable<projekt.Models.Produkt>
-
-<h1>Szczegóły dania</h1>
+﻿@model Tuple<IEnumerable<projekt.Models.Produkt>, List<decimal>, string>
+<h1>@Model.Item3</h1>
 
 @{
+    IEnumerable<projekt.Models.Produkt> produkty = Model.Item1;
+    List<decimal> ilosc_list = Model.Item2;
     decimal suma_kalorycznosc =0;
     decimal suma_bialko= 0;
     decimal suma_tluszcz = 0;
     decimal suma_weglowodany = 0;
     decimal suma_blonnik = 0;
+    decimal suma_ilosc = 0;
 
 
 }
     <div class="container">
-
-        
         <div class="left-div">
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr>                    
                         <th>
-                            @Html.DisplayNameFor(model => model.Nazwa)
+                            Nazwa
+                        </th>
+                        <th>Ilość</th>
+                        <th>
+                            Kaloryczność
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Kaloryczność)
+                            Białko
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Białko)
+                           Tłuszcz
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Tłuszcz)
+                            Węglowodany
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Węglowodany)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Błonnik)
+                            Błonnik
                         </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in produkty)
                     {
+                    
+                    decimal ilosc = ilosc_list[0];
+                    ilosc_list.RemoveAt(0);
 
-                    suma_kalorycznosc += Convert.ToDecimal(item.Kaloryczność.GetValueOrDefault());
-                    suma_bialko += Convert.ToDecimal(item.Białko.GetValueOrDefault());
-                    suma_tluszcz += Convert.ToDecimal(item.Tłuszcz.GetValueOrDefault());
-                    suma_weglowodany += Convert.ToDecimal(item.Węglowodany.GetValueOrDefault());
-                    suma_blonnik += Convert.ToDecimal(item.Błonnik.GetValueOrDefault());
+                    decimal kalorycznosc = Convert.ToDecimal(item.Kaloryczność.GetValueOrDefault())* ilosc / 100 ;
+                    decimal bialko = Convert.ToDecimal(item.Białko.GetValueOrDefault()) * ilosc / 100;
+                    decimal tluszcz = Convert.ToDecimal(item.Tłuszcz.GetValueOrDefault())* ilosc / 100 ;
+                    decimal weglowodany = Convert.ToDecimal(item.Węglowodany.GetValueOrDefault())* ilosc / 100 ;
+                    decimal blonnik = Convert.ToDecimal(item.Błonnik.GetValueOrDefault()) * ilosc / 100;
 
-                        <tr>
+                    suma_kalorycznosc += kalorycznosc;
+                    suma_bialko += bialko;
+                    suma_tluszcz += tluszcz;
+                    suma_weglowodany += weglowodany;
+                    suma_blonnik += blonnik;
+                    suma_ilosc += ilosc;
+                    <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Nazwa)
+                            @Html.DisplayFor(modelItem => item.Nazwa)
+                            </td>
+                            <td>@ilosc</td>
+                            <td>
+                                @kalorycznosc
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Kaloryczność)
+                                @bialko
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Białko)
+                                @tluszcz
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Tłuszcz)
+                                @weglowodany
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Węglowodany)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Błonnik)
+                                @blonnik
                             </td>
                         </tr>
                     }
                         <tr>
                             <td><b>SUMA</b></td>
+                            <td><b>@suma_ilosc</b></td>
                             <td><b>@suma_kalorycznosc</b></td>
                             <td><b>@suma_bialko</b></td>
                             <td><b>@suma_tluszcz</b></td>

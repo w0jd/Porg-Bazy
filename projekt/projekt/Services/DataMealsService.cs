@@ -7,7 +7,9 @@ namespace projekt.Services
     {
         IEnumerable<Dania> GetMeals();
         IEnumerable<Produkt> GetProducts();
+        List<decimal> GetJadlospis(int id);
         IEnumerable<Produkt> GetMealsDetails(int id);
+        String GetMealName(int id);
         int DeleteMeal(int id);
     }
 
@@ -98,6 +100,32 @@ namespace projekt.Services
             _context.Dania.Remove(meal);
             _context.SaveChanges();
             return id;
+        }
+
+        public List<decimal> GetJadlospis(int id)
+        {
+            IEnumerable<DaniaProdukty> _dania_produkty = _context.DaniaProdukty.ToList();
+            List<decimal> ilosc = new List<decimal>();
+            foreach (var item in _dania_produkty) {
+                if (item.IdDania == id) {
+                    ilosc.Add(item.Ilość);
+                }
+            }
+            return ilosc;
+        }
+
+        string IDataMealsService.GetMealName(int id)
+        {
+
+            IEnumerable<Dania> dania = _context.Dania.ToList();
+            foreach (var item in dania)
+            {
+                if (item.Id == id) {
+                    return item.NazwaDania;
+                }
+                
+            }
+            return string.Empty;
         }
     }
 }

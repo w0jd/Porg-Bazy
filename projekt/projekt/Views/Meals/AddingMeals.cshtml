@@ -1,12 +1,36 @@
-﻿
+﻿@*@model InventoryBeginners.Models.Supplier
+*@
+@{
+    ViewData["Title"] = "Create";
+}
 
+<h1>Supplier - Create</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+            <div class="form-group">
+                <label  class="control-label">Nazwa</label>
+                <input  class="form-control" />
+                <span  class="text-danger"></span>
+            </div>
 
+            
 
-    <div>
-       <label>Nazwa</label> <input name="Nazwa"><br>
-        <label>Artykuł</label>
+            
+
+           
+        
+        </form>
     </div>
+</div>
 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />Lista z produktami cos na zasadzie ze mozna dodac produkt i podac ilosc, przycisk utworz
 
-<button>Dodaj</button>
