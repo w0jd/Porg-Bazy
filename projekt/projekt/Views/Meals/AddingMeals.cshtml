@@ -3,9 +3,21 @@
 @{
     ViewData["Title"] = "Create";
 }
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"> @*tutaj sa styl css do ikonek*@
+<div class="btn-group">
+    <a asp-controller="Meals" asp-action="MyMeals">
+        <span class="btn btn-sm btn-outline-primary">
+            <i class="fa fa-arrow-left"></i>
+        </span>
+    </a>
+    
+</div>
+
 
 <h1>Supplier - Create</h1>
 <hr />
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
