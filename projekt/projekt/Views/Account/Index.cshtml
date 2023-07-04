@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<Konto>
 @{
     float? kcal = 0;
+    float? kcalProdukt = 0;
     DateOnly date;
     DateOnly.TryParse(@ViewData["Date"]?.ToString(), out date);
     string str = date.ToString();
+    TempData["Date"] = ViewData["Date"].ToString();
 }
 <table>
     <thead>
@@ -11,6 +13,7 @@
    
             <th>Nazwa produktu</th>
             <th>Kaloryczność</th>
+            <th>ilość skłankia</th>
             <!-- Dodaj inne kolumny, jeśli są wymagane -->
         </tr>
     </thead>
@@ -19,7 +22,9 @@
         {
             @foreach (var jadlo in konto?.Jadlospisy)
             {
-                <tr><td>@jadlo.Dania.NazwaDania</td></tr>
+                <tr><td>@jadlo.Dania.NazwaDania</td>
+                    <td><a asp-controller="UserMeals" asp-action="DeleteDayMeal" asp-route-id="@jadlo.Dania.Id">usuń</a></td>
+                </tr>
 
                 
                 @foreach (var dapro in jadlo?.Dania?.DaniaProdukty)
@@ -28,10 +33,17 @@
                     <tr>
                        @* <td>@jadlo.Dania.NazwaDania</td>*@
                         <td>@dapro.Produkty.Nazwa</td>
-                        <td>@dapro.Produkty.Kaloryczność</td>
+                        <td>@{
+                                kcalProdukt=
+                                dapro.Ilość*
+                                dapro.Produkty.Kaloryczność;
+                            }
+                            @kcalProdukt
+                        </td>
+                        <td>@dapro.Ilość</td>
                         <!-- Dodaj wartości dla innych kolumn -->
                         @{
-                            kcal += dapro.Produkty.Kaloryczność;
+                            kcal += kcalProdukt;
                         }
                     </tr>
                 }
