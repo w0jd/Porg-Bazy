@@ -163,7 +163,7 @@ namespace projekt.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Delete(int id)
         {
             _dataMealsService.DeleteMeal(id);

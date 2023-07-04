@@ -79,7 +79,22 @@ namespace projekt.Services
 
         public int DeleteMeal(int id)
         {
-            var meal = _context.Dania.Find(id);
+            IEnumerable<DaniaProdukty> _daniaProdukty = _context.DaniaProdukty.ToList();
+            IEnumerable<Jadlospis> _jadlospis = _context.Jadlospis.ToList();
+            var meal = _context.Dania.Find(id); 
+            foreach (var item in _daniaProdukty) {
+                if (item.IdDania == id) { 
+                    _context.DaniaProdukty.Remove(item);
+                }
+            }
+            foreach (var item in _jadlospis)
+            {
+                if (item.IdDania == id)
+                {
+                    _context.Jadlospis.Remove(item);
+                }
+            }
+
             _context.Dania.Remove(meal);
             _context.SaveChanges();
             return id;

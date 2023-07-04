@@ -113,12 +113,27 @@
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </span>
                                 </a>
-                                <a asp-action="MealsController/Delete" asp-route-id="@item.Id">
-                                    
+                                @*<a asp-action="MealsController/Delete" asp-route-id="@item.Id">*@
+                                <a href="@Url.Action("Delete", new { id = item.Id })">
                                     <span class="btn btn-sm btn-outline-danger">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </span>
                                 </a>
+
+
+
+                                  @*  @using (Html.BeginForm("Delete","Meals",FormMethod.Post))
+                                    {
+                                    <a>
+                                       <span class="btn btn-sm btn-outline-danger">
+                                        <input type="hidden" name="Id" value = "@item.Id"/>
+                                        <button type="submit"></button>
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </span> 
+                                    </a>
+                                    }*@
+                                    
+                                             
                             </div>
                         </td>
                         
