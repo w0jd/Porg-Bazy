@@ -10,6 +10,16 @@ namespace projekt.Controllers
         {
             _context = context;
         }
+        public IActionResult DeleteDayMeal(int id)
+        {
+            var userName = User.FindFirst(ClaimTypes.Name).Value;
+            var usr = _context.Jadlospis.First(a=>a.IdJadlospis==id);
+            var danie = _context.Jadlospis.Find(usr.IdDania, usr.IdKonta,usr.IdJadlospis);
+
+            _context.Remove(danie);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Account");
+        }
         [HttpPost]
         public IActionResult AddExistingMealPost(int danie, string czas) {
             var userName = User.FindFirst(ClaimTypes.Name).Value;
@@ -24,7 +34,8 @@ namespace projekt.Controllers
             jadlospis.IdKonta = wyniki.Id;
             _context.Add(jadlospis);
             _context.SaveChanges();
-            return View("../Account/Index");
+            return RedirectToAction("Index","Account");
+            //return View("../Account/Index");
         }
         public IActionResult AddExistingMeal(string id)
         {

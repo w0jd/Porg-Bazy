@@ -5,6 +5,8 @@ namespace projekt.Models;
 
 public partial class Jadlospis
 {
+    [Key]
+    public int IdJadlospis{ get; set; }
     [ForeignKey("IdDania")]
     public int IdDania { get; set; }
     public Dania Dania { get; set; }

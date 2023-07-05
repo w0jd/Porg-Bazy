@@ -29,7 +29,7 @@ namespace Projekt.Data
                 .HasForeignKey(pc => pc.IdDania);
 
             modelBuilder.Entity<Jadlospis>()
-                .HasKey(pc => new { pc.IdDania, pc.IdKonta });
+                .HasKey(pc => new { pc.IdDania, pc.IdKonta ,pc.IdJadlospis});
 
             modelBuilder.Entity<Produkt>()
                 .HasMany(p => p.DaniaProdukty)

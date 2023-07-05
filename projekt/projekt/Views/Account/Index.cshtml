@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Konto>
+﻿@model IEnumerable<Jadlospis>
 @{
     float? kcal = 0;
     DateOnly date;
@@ -15,18 +15,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var konto in Model)
+        @foreach (var jadlo in Model)
         {
-            @foreach (var jadlo in konto?.Jadlospisy)
-            {
-                <tr><td>@jadlo.Dania.NazwaDania</td></tr>
+       
+                <tr><td>@jadlo.Dania.NazwaDania<a asp-controller="UserMeals" asp-action="DeleteDayMeal" asp-route-id="@jadlo.IdJadlospis">usuń</a></td></tr>
 
                 
                 @foreach (var dapro in jadlo?.Dania?.DaniaProdukty)
                 {
                     
                     <tr>
-                       @* <td>@jadlo.Dania.NazwaDania</td>*@
+                       @* <td>@jadlo.Dania.NazwaDaniaz</td>*@
                         <td>@dapro.Produkty.Nazwa</td>
                         <td>@dapro.Produkty.Kaloryczność</td>
                         <!-- Dodaj wartości dla innych kolumn -->

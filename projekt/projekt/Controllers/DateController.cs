@@ -19,16 +19,21 @@ namespace projekt.Controllers
             DateOnly date=DateOnly.Parse(czas);
             var userName = User.FindFirst(ClaimTypes.Name).Value;
             var currentDate = date.AddDays(-1);
-
+            var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
             ViewData["Date"] = currentDate;
+            var jadlo = _context.Jadlospis.Where(a => a.IdKonta == idKOnta.Id && a.Dzień == currentDate);
 
-            var wyniki = _context.Konta
-                .Where(a => a.Nazwa == userName)
-                .Include(acc => acc.Jadlospisy.Where(a => a.Dzień == currentDate))
-                .ThenInclude(jadlo => jadlo.Dania)
-                .ThenInclude(danie => danie.DaniaProdukty)
-                .ThenInclude(dapro => dapro.Produkty);
-            return View("../Account/Index",wyniki);
+            var danie =jadlo.Include(a=>a.Dania);
+            var danieProdkut = danie.ThenInclude(a => a.DaniaProdukty);
+            var produkt = danieProdkut.ThenInclude(a => a.Produkty);
+            var wyniki = _context.Jadlospis
+    .Include(a => a.Dania)
+        .ThenInclude(danie => danie.DaniaProdukty)
+            .ThenInclude(dapro => dapro.Produkty)
+    .Where(a => a.IdKonta == idKOnta.Id && a.Dzień == currentDate)
+    .ToList();
+
+            return View("../Account/Index", wyniki);
         }
         public IActionResult nastepny(string czas)
         {
@@ -37,17 +42,24 @@ namespace projekt.Controllers
             DateOnly date = DateOnly.Parse(czas);
             var userName = User.FindFirst(ClaimTypes.Name).Value;
             var currentDate = date.AddDays(1);
-
+            var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
             ViewData["Date"] = currentDate;
+            var jadlo = _context.Jadlospis.Where(a => a.IdKonta == idKOnta.Id && a.Dzień == currentDate);
 
-            var wyniki = _context.Konta
-                .Where(a => a.Nazwa == userName)
-                .Include(acc => acc.Jadlospisy.Where(a => a.Dzień == currentDate))
-                .ThenInclude(jadlo => jadlo.Dania)
-                .ThenInclude(danie => danie.DaniaProdukty)
-                .ThenInclude(dapro => dapro.Produkty);
+            var danie = jadlo.Include(a => a.Dania);
+            var danieProdkut = danie.ThenInclude(a => a.DaniaProdukty);
+            var produkt = danieProdkut.ThenInclude(a => a.Produkty);
+            Console.Write(produkt);
+
+            var wyniki = _context.Jadlospis
+.Include(a => a.Dania)
+  .ThenInclude(danie => danie.DaniaProdukty)
+      .ThenInclude(dapro => dapro.Produkty)
+.Where(a => a.IdKonta == idKOnta.Id && a.Dzień == currentDate)
+.ToList();
             return View("../Account/Index", wyniki);
         }
+    
         public IActionResult Index()
         {
             return View();
