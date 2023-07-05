@@ -4,8 +4,12 @@
 
 @{
     ViewData["Title"] = "Create";
-    List<projekt.Models.Produkt> produkty = Model.Item1;
+    List<projekt.Models.Produkt> produkty = Model.Item1; // z ta wezme liste wszystkich produktow
+    List<projekt.Models.Produkt> produkty_nowe = new List<projekt.Models.Produkt>(); //to jest gotowa lista nowych produktow
 }
+
+
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"> @*tutaj sa styl css do ikonek*@
 <div class="btn-group">
     <a asp-controller="Meals" asp-action="MyMeals">
@@ -19,12 +23,17 @@
 <div>
     <form asp-controller="Meals" asp-action="CreateMeal"> @*form ktory po submicie przekieruje do listy z posilkami*@
         <label class="control-label">Nazwa</label>
-        <input class="form-control" />
+        <input class="form-control" name="nazwa" />
         <button type="submit">Utwórz</button>
-
     </form>
-    
+    <div class="form-group"> 
+        
+    </div>
 </div>
+
+
+
+
 
 
 

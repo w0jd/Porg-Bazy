@@ -2,6 +2,17 @@
 
 <h1>@Model.Item3</h1>
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"> @*tutaj sa styl css do ikonek*@
+<div class="btn-group">
+    <a asp-controller="Meals" asp-action="MyMeals">
+        <span class="btn btn-sm btn-outline-primary">
+            <i class="fa fa-arrow-left"></i>
+        </span>
+    </a>
+</div>
+
+
+
 @{
     IEnumerable<projekt.Models.Produkt> produkty = Model.Item1;
     List<decimal> ilosc_list = Model.Item2;

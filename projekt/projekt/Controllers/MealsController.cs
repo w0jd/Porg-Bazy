@@ -193,7 +193,7 @@ namespace projekt.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateMeal (/*List<Produkt> produkty, List<decimal> ilosc*/) {
+        public IActionResult CreateMeal (string nazwa/*List<Produkt> produkty, List<decimal> ilosc*/) {
             //tutaj logika tworzenie dania 
             return RedirectToAction("MyMeals");
         }
