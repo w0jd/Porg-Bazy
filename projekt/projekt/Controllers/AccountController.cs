@@ -44,7 +44,7 @@ namespace projekt.Controllers
             var user = _context.Konta.First(u => u.Nazwa == request.Nazwa);
             if (user == null)
             {
-                TempData["success"] = "user not found";
+                TempData["success"] = "nie znaleziono użytkownika";
                 return RedirectToAction("Login", "Account");
 
             }
