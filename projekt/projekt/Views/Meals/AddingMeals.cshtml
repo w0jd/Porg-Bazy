@@ -1,7 +1,10 @@
-﻿@*@model InventoryBeginners.Models.Supplier
-*@
+﻿@model Tuple<List<projekt.Models.Produkt>>
+
+
+
 @{
     ViewData["Title"] = "Create";
+    List<projekt.Models.Produkt> produkty = Model.Item1;
 }
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"> @*tutaj sa styl css do ikonek*@
 <div class="btn-group">
@@ -10,34 +13,21 @@
             <i class="fa fa-arrow-left"></i>
         </span>
     </a>
+</div>
+
+
+<div>
+    <form asp-controller="Meals" asp-action="CreateMeal"> @*form ktory po submicie przekieruje do listy z posilkami*@
+        <label class="control-label">Nazwa</label>
+        <input class="form-control" />
+        <button type="submit">Utwórz</button>
+
+    </form>
     
 </div>
 
 
-<h1>Supplier - Create</h1>
-<hr />
 
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label  class="control-label">Nazwa</label>
-                <input  class="form-control" />
-                <span  class="text-danger"></span>
-            </div>
-
-            
-
-            
-
-           
-        
-        </form>
-    </div>
-</div>
 
 <br />
 <br />
