@@ -31,52 +31,22 @@ namespace projekt.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dania");
+                    b.ToTable("Dania", (string)null);
                 });
 
             modelBuilder.Entity("projekt.Models.DaniaProdukty", b =>
                 {
-
-                   
-
-                    b.Property<int>("IdProduktu")
+                    b.Property<int>("IdDania")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdDania")
-
+                    b.Property<int>("IdProduktu")
                         .HasColumnType("int");
 
                     b.Property<int>("Ilość")
                         .HasColumnType("int");
 
-
-
-
-                    b.HasKey("IdProduktu", "IdDania");
-
-                    b.HasIndex("IdDania");
-
-                    b.ToTable("DaniaProdukty");
+                    b.ToTable("DaniaProdukty", (string)null);
                 });
-
-            modelBuilder.Entity("projekt.Models.Jadlospis", b =>
-                {
-                    b.Property<int>("IdDania")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdKonta")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("Dzień")
-                        .HasColumnType("date");
-
-                    b.HasKey("IdDania", "IdKonta");
-
-                    b.HasIndex("IdKonta");
-
-                    b.ToTable("Jadlospisy");
-                });
-
 
             modelBuilder.Entity("projekt.Models.Konto", b =>
                 {
@@ -94,7 +64,7 @@ namespace projekt.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Konta");
+                    b.ToTable("Konta", (string)null);
                 });
 
             modelBuilder.Entity("projekt.Models.Produkt", b =>
@@ -129,62 +99,7 @@ namespace projekt.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produkty");
-                });
-
-            modelBuilder.Entity("projekt.Models.DaniaProdukty", b =>
-                {
-                    b.HasOne("projekt.Models.Dania", "Dania")
-                        .WithMany("DaniaProdukty")
-                        .HasForeignKey("IdDania")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("projekt.Models.Produkt", "Produkty")
-                        .WithMany("DaniaProdukty")
-                        .HasForeignKey("IdProduktu")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Dania");
-
-                    b.Navigation("Produkty");
-                });
-
-            modelBuilder.Entity("projekt.Models.Jadlospis", b =>
-                {
-                    b.HasOne("projekt.Models.Dania", "Dania")
-                        .WithMany("Jadlospisy")
-                        .HasForeignKey("IdDania")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("projekt.Models.Konto", "Konta")
-                        .WithMany("Jadlospisy")
-                        .HasForeignKey("IdKonta")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Dania");
-
-                    b.Navigation("Konta");
-                });
-
-            modelBuilder.Entity("projekt.Models.Dania", b =>
-                {
-                    b.Navigation("DaniaProdukty");
-
-                    b.Navigation("Jadlospisy");
-                });
-
-            modelBuilder.Entity("projekt.Models.Konto", b =>
-                {
-                    b.Navigation("Jadlospisy");
-                });
-
-            modelBuilder.Entity("projekt.Models.Produkt", b =>
-                {
-                    b.Navigation("DaniaProdukty");
+                    b.ToTable("Produkty", (string)null);
                 });
 #pragma warning restore 612, 618
         }
