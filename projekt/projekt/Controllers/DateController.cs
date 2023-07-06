@@ -21,11 +21,7 @@ namespace projekt.Controllers
             var currentDate = date.AddDays(-1);
             var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
             ViewData["Date"] = currentDate;
-            var jadlo = _context.Jadlospis.Where(a => a.IdKonta == idKOnta.Id && a.Dzień == currentDate);
-
-            var danie =jadlo.Include(a=>a.Dania);
-            var danieProdkut = danie.ThenInclude(a => a.DaniaProdukty);
-            var produkt = danieProdkut.ThenInclude(a => a.Produkty);
+    
             var wyniki = _context.Jadlospis
     .Include(a => a.Dania)
         .ThenInclude(danie => danie.DaniaProdukty)

@@ -3,48 +3,42 @@
 
 *@
 
-@model IEnumerable<Konto>
+@model IEnumerable<Dania>
 @{
     TempData["czas"] = ViewData["id"].ToString();
 
 }
 <label for="Date">Data</label>
 <input disabled type="text" name="czas" value="@ViewData["id"]">
-@foreach (var konto in Model)
+@foreach (var danie in Model)
 {
-    @if (konto?.Nazwa == ViewData["user"].ToString())
-    {
-        <p>twoj dania</p>
-    }
-    else
-    {
-        <p>dania innych</p>
-    }
+
     <form method="post" asp-controller="UserMeals" asp-action="AddExistingMealPost">
     <fieldset>
-    @foreach (var jadlo in konto?.Jadlospisy)
+            <legend>@danie.NazwaDania</legend>
+    @foreach (var jadlo in danie?.DaniaProdukty)
     {
         
-        <legend>@jadlo.Dania.NazwaDania</legend>
+      
 
 
-        @foreach (var dapro in jadlo?.Dania?.DaniaProdukty)
-        {
-                <br />
+       
+           
                     <input style="display:none" disabled type="text" name="czas" value="@ViewData["id"].ToString()">
                 @* <td>@jadlo.Dania.NazwaDania</td>*@
-                <span>@dapro.Produkty.Nazwa</span>
-                <span>@dapro.Produkty.Kaloryczność</span>
-                <br />
+                <span>@jadlo.Produkty.Nazwa</span>
+                <span>@jadlo.Produkty.Kaloryczność</span>
+                <br>
+        
                 <!-- Dodaj wartości dla innych kolumn -->
            
             
-        }
+        
           
 
         <input style="display:none" name="danie" value="@jadlo.Dania.Id">
-                <button type="submit" >Wybierz</button>
     }
+                <button type="submit" >Wybierz</button>
 </fieldset>
     </form>
 }
