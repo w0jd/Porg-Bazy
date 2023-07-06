@@ -1,30 +1,25 @@
-﻿@model projekt.Models.Dania
-
+﻿@using projekt.ViewModels;
 @{
-    ViewData["Title"] = "Create";
-}
+    @model Tuple<List<Produkt> ,List<MealsDetailsViewModel>>
 
-<h1>Create</h1>
+    var produktmoj = Model.Item1.FirstOrDefault();
+    var danie = new MealsDetailsViewModel() { ilosc = 10m, produkt = produktmoj };
+    Model.Item2.Add(danie);
+    <h2>Lista produktów</h2>
 
-<h4>Dania</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NazwaDania" class="control-label"></label>
-                <input asp-for="NazwaDania" class="form-control" />
-                <span asp-validation-for="NazwaDania" class="text-danger"></span>
-            </div>
-
-            <table class="table">
+    @using (Html.BeginForm("Create", "Meals", FormMethod.Post))
+    {
+        <label> Nazwa</label>
+        <input type="text" id="nazwa" name="nazwa">
+        <table class="table">
                 <thead>
                     <tr>
                         <th>
                             Nazwa
                         </th>
-                        <th>Ilość</th>
+                        <th>
+                            Ilość
+                        </th>
                         <th>
                             Kaloryczność
                         </th>
@@ -43,53 +38,63 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.DaniaProdukty)                  
-                    {
-                        <tr>
-                            <td>
-                                <input> asp-for="@item.Produkty.Nazwa" class = "form-control"/>
-                            </td>
-                            <td>
-                                <input> asp-for="@item.Ilość" class = "form-control"/>
-                            </td>
-                        </tr>
+                @foreach (var item in Model.Item2)
+                {
+                    <tr>
+                        <td>
+                            <input disabled asp-for="@item.produkt.Nazwa" class = "form-control"/>
+                        </td>
+                        <td>
+                            <input disabled asp-for="@item.ilosc" class = "form-control"/>
+                        </td>
+                        <td>
+                            
+                            <input disabled asp-for="@item.produkt.Kaloryczność" class="form-control" />
+                        </td>
+                        <td>
+                            <input disabled asp-for="@item.produkt.Białko" class="form-control" />
+                        </td>
+                        <td>
+                            <input disabled asp-for="@item.produkt.Tłuszcz" class="form-control" />
+                        </td>
+                        <td>
+                            <input disabled asp-for="@item.produkt.Węglowodany" class="form-control" />
+                        </td>
+                        <td>
+                            <input disabled asp-for="@item.produkt.Błonnik" class="form-control" />
+                        </td>
                         
-                    
-                    
-                    }
+                    </tr>
+                }
+                <tr>
+                    <td>
+                        <input  class="form-control" />
+                    </td>
+                    <td>
+                        <input  class="form-control" />
+                    </td>
+                    <td>
+                        <input disabled  class="form-control" />
+                    </td>
+                    <td>
+                        <input disabled  class="form-control" />
+                    </td>
+                    <td>
+                        <input disabled  class="form-control" />
+                    </td>
+                    <td>
+                        <input disabled  class="form-control" />
+                    </td>
+                    <td>
+                        <input disabled  class="form-control" />
+                    </td>
+                    <td>
+                        <Button>+</Button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-                </tbody>
-
-
-            </table>
-
-
-
-
-
-
-
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-
-
-
-
-
-
-
-
-
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <button type="submit">Utwórz podlistę</button>
+    }
 }

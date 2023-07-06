@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using projekt.Models;
 using projekt.Services;
+using projekt.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -208,27 +209,45 @@ namespace projekt.Controllers
         public IActionResult Create()
         {
             
-            Dania danie = new Dania();
-            var daniaProdukty = new DaniaProdukty() { };
-            danie.DaniaProdukty.Add(daniaProdukty);
-            
-            return View(danie);
+            List<MealsDetailsViewModel> mealsDetailsViewModel = new List<MealsDetailsViewModel>();
+            List<Produkt> produkty = _dataMealsService.GetProducts().ToList();
+            var resault = Tuple.Create(produkty, mealsDetailsViewModel);
+            return View(resault);
         }
         [HttpPost]
-        public IActionResult Create(Dania danie) {
-            foreach (DaniaProdukty daniaprodukt in danie.DaniaProdukty) {
-                if (daniaprodukt.IdDania == null || daniaprodukt.IdProduktu == null) {
-                    danie.DaniaProdukty.Remove(daniaprodukt);
-                }
-            }
+        public IActionResult Create(List<MealsDetailsViewModel> mealsDetailsViewModel, [FromForm] string nazwa) {
+            //foreach (var item in daniaProdukty) {
+            //    if (daniaprodukt.IdDania == null || daniaprodukt.IdProduktu == null) {
+            //        danie.DaniaProdukty.Remove(daniaprodukt);
+            //    }
+            //}
 
 
-            _db.Add(danie);
-            _db.SaveChanges();
+            //_db.Add(danie);
+            //_db.SaveChanges();
             return RedirectToAction("MyMeals");
 
         }
 
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            Dania danie = _db.Dania.Where(p => p.Id == Id).FirstOrDefault();
+
+
+            return View(danie);
+            //Dania danie = _db.Dania.Where(p => p.Id == Id).FirstOrDefault();
+            //return View(danie);
+        }
+        [HttpPost]
+        public IActionResult Edit(DaniaProdukty danie)
+        {
+            _db.Attach(danie);
+            _db.Entry(danie).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("MyMeals");
+
+        }
 
     }
 }

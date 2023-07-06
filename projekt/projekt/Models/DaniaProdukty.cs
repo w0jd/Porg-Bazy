@@ -14,6 +14,10 @@ public partial class DaniaProdukty
     public int IdDania { get; set; }
     public Dania Dania { get; set; }
 
+    [Range(1, 500, ErrorMessage = "Numer musi być w zakresie od 1 do 500.")]
     public int Ilość { get; set; }
+
+    
+
 
 }
