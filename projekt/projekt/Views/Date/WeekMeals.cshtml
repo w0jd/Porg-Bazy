@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Jadlospis>
+<table>
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Nazwa dania</th>
+            <!-- Dodaj inne kolumny, jeśli są wymagane -->
+        </tr>
+    </thead>
+    <tbody>
+
+            @foreach (var jadlo in Model){
+            <tr>
+                <td>@jadlo.Dzień<td>
+                <td>@jadlo.Dania.NazwaDania</td>
+                            @foreach (var prod in jadlo.Dania.DaniaProdukty)
+                            {
+                                <tr>
+                                <td>@prod.Produkty.Nazwa</td>
+                                <td>@prod.Produkty.Kaloryczność</td>
+                               </tr>
+                            }
+                            <!-- Dodaj wartości dla innych kolumn -->
+            </tr>
+        }}
+    </tbody>
+</table>

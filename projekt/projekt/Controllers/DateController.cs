@@ -60,5 +60,16 @@ namespace projekt.Controllers
         {
             return View();
         }
+        public IActionResult WeekMeals()
+        {
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+            DateOnly startOfWeek = currentDate.AddDays(-(int)currentDate.DayOfWeek);
+            DateOnly endOfWeek = startOfWeek.AddDays(7);
+            var userName = User.FindFirst(ClaimTypes.Name).Value;
+            var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
+            var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a=>a.DaniaProdukty).ThenInclude(a=>a.Produkty);
+
+            return View(jadlo);
+        }
     }
 }
