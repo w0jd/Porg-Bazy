@@ -44,10 +44,8 @@ namespace projekt.Controllers
             /*            DateOnly.TryParse(id, out dat);
                         Console.WriteLine(dat);*/
             ViewData["user"] = User.FindFirst(ClaimTypes.Name).Value;
-            var wyniki = _context.Konta
-               .Include(acc => acc.Jadlospisy)
-               .ThenInclude(jadlo => jadlo.Dania)
-               .ThenInclude(dapr => dapr.DaniaProdukty)
+            var wyniki =_context.Dania
+               .Include(dapr => dapr.DaniaProdukty)
                .ThenInclude(pr => pr.Produkty);
             ViewData["id"] = id;
             return View(wyniki);
