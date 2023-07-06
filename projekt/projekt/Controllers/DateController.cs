@@ -70,7 +70,7 @@ namespace projekt.Controllers
             DateOnly endOfWeek = startOfWeek.AddDays(7);
             var userName = User.FindFirst(ClaimTypes.Name).Value;
             var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
-            var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a=>a.DaniaProdukty).ThenInclude(a=>a.Produkty);
+            var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a=>a.DaniaProdukty).ThenInclude(a=>a.Produkty).OrderBy(a => a.Dzień);
             @ViewData["Date"] = currentDate;
             return View(jadlo);
         }
@@ -84,7 +84,7 @@ namespace projekt.Controllers
             DateOnly endOfWeek = startOfWeek.AddDays(7);
             var userName = User.FindFirst(ClaimTypes.Name).Value;
             var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
-            var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a => a.DaniaProdukty).ThenInclude(a => a.Produkty);
+            var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a => a.DaniaProdukty).ThenInclude(a => a.Produkty).OrderBy(a => a.Dzień);
             @ViewData["Date"] = startOfWeek;
             return View("WeekMeals");
         }
@@ -107,7 +107,7 @@ namespace projekt.Controllers
             }
             var userName = User.FindFirst(ClaimTypes.Name).Value;
             var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
-            var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a => a.DaniaProdukty).ThenInclude(a => a.Produkty);
+            var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a => a.DaniaProdukty).ThenInclude(a => a.Produkty).OrderBy(a=>a.Dzień);
             @ViewData["Date"] = startOfWeek;
             return View("WeekMeals");
         }
