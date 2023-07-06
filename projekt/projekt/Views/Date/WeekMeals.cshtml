@@ -3,6 +3,12 @@
 *@
 @{
 }
+@{
+    float? kcal = 0;
+    DateOnly date;
+    DateOnly.TryParse(@ViewData["Date"]?.ToString(), out date);
+    string str = date.ToString();
+}
 @model IEnumerable<Jadlospis>
 <table>
     <thead>
@@ -13,20 +19,44 @@
         </tr>
     </thead>
     <tbody>
-
-            @foreach (var jadlo in Model){
+        @if (Model == null)
+        {
+            <p>Pusto</p>
+           
+        }else{
+        @foreach (var jadlo in Model){
             <tr>
                 <td>@jadlo.Dzień<td>
                 <td>@jadlo.Dania.NazwaDania</td>
+                </tr>
                             @foreach (var prod in jadlo.Dania.DaniaProdukty)
                             {
                                 <tr>
                                 <td>@prod.Produkty.Nazwa</td>
                                 <td>@prod.Produkty.Kaloryczność</td>
+                               
                                </tr>
                             }
                             <!-- Dodaj wartości dla innych kolumn -->
-            </tr>
-        }}
+           
+        }}}
     </tbody>
 </table>
+<div>
+
+    <p name="dzien">@ViewData["Date"]</p>
+    <form method="post" asp-controller="Date" asp-action="previousWeek">
+        <input style="display:none" type="text" name="czas" value="@ViewData["Date"]">
+        <button type="submit">poprzedni</button>
+
+    </form>
+    @if (@date != DateOnly.FromDateTime(DateTime.Now))
+    {
+        <form method="post" asp-controller="Date" asp-action="nextWeek">
+            <input style="display:none" type="text" name="czas" value="@ViewData["Date"]">
+
+            <button type="submit">nastepny</button>
+        </form>
+    }
+
+</div>

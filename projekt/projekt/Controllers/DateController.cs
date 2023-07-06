@@ -45,7 +45,10 @@ namespace projekt.Controllers
             var danie = jadlo.Include(a => a.Dania);
             var danieProdkut = danie.ThenInclude(a => a.DaniaProdukty);
             var produkt = danieProdkut.ThenInclude(a => a.Produkty);
-            Console.Write(produkt);
+           if(currentDate == DateOnly.FromDateTime(DateTime.Now))
+            {
+                return RedirectToAction("Index", "Account");
+            }
 
             var wyniki = _context.Jadlospis
 .Include(a => a.Dania)
@@ -68,8 +71,45 @@ namespace projekt.Controllers
             var userName = User.FindFirst(ClaimTypes.Name).Value;
             var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
             var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a=>a.DaniaProdukty).ThenInclude(a=>a.Produkty);
-
+            @ViewData["Date"] = currentDate;
             return View(jadlo);
+        }
+        public IActionResult previousWeek(string czas)
+        {
+            DateOnly date = DateOnly.Parse(czas);
+            DateOnly startOfWeek = date.AddDays(-(int)date.DayOfWeek);
+            date = startOfWeek.AddDays(-1);
+            startOfWeek = date.AddDays(-(int)date.DayOfWeek);
+
+            DateOnly endOfWeek = startOfWeek.AddDays(7);
+            var userName = User.FindFirst(ClaimTypes.Name).Value;
+            var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
+            var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a => a.DaniaProdukty).ThenInclude(a => a.Produkty);
+            @ViewData["Date"] = startOfWeek;
+            return View("WeekMeals");
+        }
+        public IActionResult nextWeek(string czas)
+        {
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+            DateOnly breakDate = currentDate.AddDays(-(int)currentDate.DayOfWeek);
+            DateOnly date = DateOnly.Parse(czas);
+            DateOnly startOfWeek = date.AddDays(-(int)date.DayOfWeek);
+
+            DateOnly endOfWeek = startOfWeek.AddDays(7);
+            date = endOfWeek.AddDays(1);
+            startOfWeek = date.AddDays(-(int)date.DayOfWeek);
+             endOfWeek = startOfWeek.AddDays(7);
+         
+            if(startOfWeek <= breakDate && breakDate<endOfWeek)
+            {
+                
+                return RedirectToAction("WeekMeals");
+            }
+            var userName = User.FindFirst(ClaimTypes.Name).Value;
+            var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
+            var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a => a.DaniaProdukty).ThenInclude(a => a.Produkty);
+            @ViewData["Date"] = startOfWeek;
+            return View("WeekMeals");
         }
     }
 }
