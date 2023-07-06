@@ -13,15 +13,7 @@ namespace projekt.Controllers
 
         private readonly IDataMealsService _dataMealsService;
 
-        //posilki
-        // IEnumerable <Produkt> products;
-        // public MealsController(IDataMealsService DataProductService)
-        // {
-        // _dataMealsService = DataProductService;
-        // products = _dataMealsService.GetProducts();
 
-
-        //}
 
         private readonly ApplicationDbContext _db;
 
@@ -51,75 +43,59 @@ namespace projekt.Controllers
             return View(data);
 
         }
-        //{
-        //    ViewBag.CurrentSort = sortOrder;
-        //    ViewBag.NazwaSortParam = sortOrder =="Nazwa" ? "nazwa_desc" : "Nazwa";
-        //    ViewBag.KcalSort = sortOrder == "kcal" ? "kcal_desc" : "kcal";
-        //    ViewBag.FatSort = sortOrder == "fat" ? "fat_desc" : "fat";
-        //    ViewBag.FibreSort = sortOrder == "fibre" ? "fibre_desc" : "fibre";
-        //    ViewBag.ProteinSort = sortOrder == "protein" ? "protein_desc" : "protein";
-        //    ViewBag.CbhdSort = sortOrder == "cbhd" ? "cbhd_desc" : "cbhd";
-        //    if (searchQuery != null)
-        //    {
-        //        page = 1;
-        //    }
-        //    else
-        //    {
-        //        searchQuery = currentFilter;
-        //    }
+        public IActionResult NameMeal()
+        {
+            return View();
+        }
+        public IActionResult Add(string id)
+        {
+            string[] variables = id.Split('_');
+            string idDania = variables[0];
+            string idPorduktu = variables[1];
+            int.TryParse(idDania, out int DanieId);
+            int.TryParse(idPorduktu, out int PorduktuId);
+            var i = ViewData["id"];
+            var czy = _db.DaniaProdukty.Where(a => a.IdProduktu == PorduktuId && a.IdDania.ToString() == DanieId.ToString());
+            if (czy.Count() == 0)
+            {
+                var dapro=new DaniaProdukty();
+                dapro.IdProduktu = PorduktuId;
+                string id_str = DanieId.ToString();
+                int intid;
+                ViewData["nazwa"] = DanieId;
+                int.TryParse(id_str, out intid);
+                dapro.IdDania = intid;
+                dapro.Ilość = 1;
+                _db.Add(dapro);
+                _db.SaveChanges();
 
-        //    ViewBag.currentFilter = searchQuery;
+            }
+            else
+            {
+                
+            }
+            // = DanieId;
+            ViewData["nazwa"] = DanieId;
+            var wyniki = _db.Produkty;
+            return View("CreateMeal", wyniki);
+        }
 
-        //    var products = from p in _context.Produkty
-        //                   select p;
-        //    if (!String.IsNullOrEmpty(searchQuery))
-        //    {
-        //        products = products.Where(p => p.Nazwa.Contains(searchQuery));
-        //    }
-        //    switch (sortOrder)
-        //    {
-        //        case "nazwa_desc":
-        //            products= products.OrderByDescending(p=> p.Nazwa);
-        //            break;
-        //        case "protein":
-        //            products=products.OrderBy(p=> p.Białko);
-        //            break;
-        //        case "protein_desc":
-        //            products = products.OrderByDescending(p => p.Białko);
-        //            break;
-        //        case "kcal":
-        //            products = products.OrderBy(p=> p.Kaloryczność);
-        //            break;
-        //        case "kcal_desc":
-        //            products = products.OrderByDescending(p => p.Kaloryczność);
-        //            break;
-        //        case "fat":
-        //            products = products.OrderBy(p => p.Tłuszcz);
-        //            break;
-        //        case "fat_desc":
-        //            products = products.OrderByDescending(p => p.Tłuszcz);
-        //            break;
-        //        case "cbhd":
-        //            products = products.OrderBy(p => p.Węglowodany);
-        //            break;
-        //        case "cbhd_desc":
-        //            products = products.OrderByDescending(p => p.Węglowodany);
-        //            break;
-        //        case "fibre":
-        //            products = products.OrderBy(p => p.Błonnik);
-        //            break;
-        //        case "fibre_desc":
-        //            products = products.OrderByDescending(p => p.Błonnik);
-        //            break;
-        //        default:
-        //            products = products.OrderBy(p => p.Nazwa);                  
-        //            break;
-        //    }
-        //    int pageSize = 10;
-        //    int pageNum = (page ?? 1);
-
-        //    return View(products);}
-
+        public IActionResult CreateMealMethod(string nazwa)
+        {
+            var dan = new Dania();
+            dan.NazwaDania= nazwa;
+            var id_dania = _db.Dania.OrderBy(a => a.Id).Last();
+            int plus1 = id_dania.Id;
+           // dan.Id = plus1;
+            _db.Dania.Add(dan);
+            _db.SaveChanges();
+            var id=_db.Dania.Where(d => d.NazwaDania.Equals(nazwa)).FirstOrDefault();
+             id_dania = _db.Dania.OrderBy(a => a.Id).Last();
+            ViewData["nazwa"]= plus1;
+            var wyniki = _db.Produkty;
+            return View("CreateMeal", wyniki);
+        }
+       
         public IActionResult MyMeals()
         {
             //var collection1 = GetCollection1Data();
@@ -190,10 +166,11 @@ namespace projekt.Controllers
             return View(resault);
         }
         [HttpPost]
-        public IActionResult CreateMeal (string nazwa/*List<Produkt> produkty, List<decimal> ilosc*/) {
+ /*       public IActionResult CreateMeal(string nazwaList<Produkt> produkty, List<decimal> ilosc)
+        {
             //tutaj logika tworzenie dania 
             return RedirectToAction("MyMeals");
-        }
+        }*/
 
         [HttpGet]
         public IActionResult Delete(int id)
