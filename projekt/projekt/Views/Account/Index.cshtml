@@ -1,46 +1,109 @@
 ﻿@model IEnumerable<Jadlospis>
 @{
-    float? kcal = 0;
+    double? kcal = 0;
+    double? fat = 0;
+    double? carbs = 0;
+    double? protein = 0;
     DateOnly date;
     DateOnly.TryParse(@ViewData["Date"]?.ToString(), out date);
     string str = date.ToString();
-}
-<table>
-    <thead>
-        <tr>
-   
-            <th>Nazwa produktu</th>
-            <th>Kaloryczność</th>
-            <!-- Dodaj inne kolumny, jeśli są wymagane -->
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var jadlo in Model)
-        {
-       
-                <tr><td>@jadlo.Dania.NazwaDania<a asp-controller="UserMeals" asp-action="DeleteDayMeal" asp-route-id="@jadlo.IdJadlospis">usuń</a></td></tr>
+    double? meal_kcal = 0;
+    double? meal_fat = 0;
+    double? meal_carbs = 0;
+    double? meal_protein = 0;
+    double daily_kcal = 2000;
+    double daily_fat =70;
+    double daily_carbs = 260;
+    double daily_protein = 50;
 
+}
+<div class="day-table">
+     @foreach (var jadlo in Model)
+    { 
+        <div class="meal-row">
+            <div class="table-head">
+
+                <a class="button" asp-controller="UserMeals" asp-action="DeleteDayMeal" asp-route-id="@jadlo.IdJadlospis">
+                    <button class="remove" onclick="window.location.href = /UserMeals/DeleteDayMeal/@jadlo.IdJadlospis">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </a>
                 
-                @foreach (var dapro in jadlo?.Dania?.DaniaProdukty)
-                {
-                    
-                    <tr>
-                       @* <td>@jadlo.Dania.NazwaDaniaz</td>*@
-                        <td>@dapro.Produkty.Nazwa</td>
-                        <td>@dapro.Produkty.Kaloryczność</td>
-                        <!-- Dodaj wartości dla innych kolumn -->
-                        @{
-                            kcal += dapro.Produkty.Kaloryczność;
-                        }
-                    </tr>
-                }
+            <button class="danie">@jadlo.Dania.NazwaDania</button>
+            
+            @{
+            meal_kcal = 0;
+            meal_fat = 0;
+            meal_carbs = 0;
+            meal_protein = 0;
+            @foreach (var dapro in jadlo?.Dania?.DaniaProdukty)
+            {
+
+
+                meal_kcal += dapro.Produkty.Kaloryczność;
+                meal_fat += dapro.Produkty.Tłuszcz;
+                meal_carbs += dapro.Produkty.Węglowodany;
+                meal_protein += dapro.Produkty.Białko;
+
+
+
             }
-        }
-    </tbody>
-</table>
-<p> ilość dzisiejszych kalori: @kcal</p>
-  
-    <div>
+            kcal += meal_kcal;
+            fat += meal_fat;
+            carbs += meal_carbs;
+            protein += meal_protein;
+            }
+
+            </div>
+            <div class="meal-info">
+                <div class="kalorycznosc ">
+                    <p>kaloryczność</p>
+                    <p>@meal_kcal</p>
+                </div>
+                    <div class="tluszcz ">
+                        <p>tłuszcz</p>
+                        <p>@meal_fat</p>
+                    </div>
+                    <div class="weglowodany">
+                        <p>węglowodany</p>
+                        <p>@meal_carbs</p>
+                    </div>
+                    <div class="bialko">
+                        <p>białko</p>
+                        <p>@meal_protein</p>
+                    </div>
+                
+            </div>
+        </div>
+    }
+    
+
+    
+        
+</div>
+<div id="daily-summ">
+    <h3>Podsumowanie dnia</h3>
+    <div class="day-info">
+        <div class="kalorycznosc ">
+            <p>kaloryczność</p>
+            <p>@(kcal/daily_kcal)%</p>
+        </div>
+        <div class="tluszcz ">
+            <p>tłuszcz</p>
+            <p>@(fat/daily_fat)%</p>
+        </div>
+        <div class="weglowodany">
+            <p>węglowodany</p>
+            <p>@(carbs/daily_carbs)%</p>
+        </div>
+        <div class="bialko">
+            <p>białko</p>
+            <p>@(protein/daily_protein)%</p>
+        </div>
+
+    </div>
+</div>
+<div class="bottom-nav">
  
                 <p name="dzien">@ViewData["Date"]</p>
             <form method="post" asp-controller="Date" asp-action="poprzedni">
@@ -57,7 +120,8 @@
                 </form>
                 }
     
-    </div>
+   
 
 <a asp-controller="Meals" asp-action="MyMeals">zobacz wszytkie swoje posiłki</a>
-<a asp-controller="UserMeals" asp-action="AddExistingMeal" asp-route-id="@date.ToString()">Dodaj brakujący posiłek</a>
+    <a asp-controller="UserMeals" asp-action="AddExistingMeal" asp-route-id="@date.ToString()">Dodaj brakujący posiłek</a>
+</div>
