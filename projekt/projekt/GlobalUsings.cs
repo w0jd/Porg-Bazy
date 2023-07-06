@@ -11,6 +11,5 @@ global using System.Collections.Generic;
 global using System.Security.Claims;
 global using System.Threading.Tasks;
 global using Microsoft.AspNetCore.Authentication;
-global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using System.Linq;

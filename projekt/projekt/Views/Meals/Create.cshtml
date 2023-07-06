@@ -17,9 +17,71 @@
                 <input asp-for="NazwaDania" class="form-control" />
                 <span asp-validation-for="NazwaDania" class="text-danger"></span>
             </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nazwa
+                        </th>
+                        <th>Ilość</th>
+                        <th>
+                            Kaloryczność
+                        </th>
+                        <th>
+                            Białko
+                        </th>
+                        <th>
+                            Tłuszcz
+                        </th>
+                        <th>
+                            Węglowodany
+                        </th>
+                        <th>
+                            Błonnik
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DaniaProdukty)                  
+                    {
+                        <tr>
+                            <td>
+                                <input> asp-for="@item.Produkty.Nazwa" class = "form-control"/>
+                            </td>
+                            <td>
+                                <input> asp-for="@item.Ilość" class = "form-control"/>
+                            </td>
+                        </tr>
+                        
+                    
+                    
+                    }
+
+                </tbody>
+
+
+            </table>
+
+
+
+
+
+
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+
+
+
+
+
+
+
+
+
         </form>
     </div>
 </div>
