@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using projekt.Models;
 using projekt.Services;
@@ -188,10 +189,6 @@ namespace projekt.Controllers
             var resault = Tuple.Create(produkty);
             return View(resault);
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
         [HttpPost]
         public IActionResult CreateMeal (string nazwa/*List<Produkt> produkty, List<decimal> ilosc*/) {
             //tutaj logika tworzenie dania 
@@ -203,6 +200,33 @@ namespace projekt.Controllers
         {
             _dataMealsService.DeleteMeal(id);
             return RedirectToAction("MyMeals");
+        }
+
+
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            
+            Dania danie = new Dania();
+            var daniaProdukty = new DaniaProdukty() { };
+            danie.DaniaProdukty.Add(daniaProdukty);
+            
+            return View(danie);
+        }
+        [HttpPost]
+        public IActionResult Create(Dania danie) {
+            foreach (DaniaProdukty daniaprodukt in danie.DaniaProdukty) {
+                if (daniaprodukt.IdDania == null || daniaprodukt.IdProduktu == null) {
+                    danie.DaniaProdukty.Remove(daniaprodukt);
+                }
+            }
+
+
+            _db.Add(danie);
+            _db.SaveChanges();
+            return RedirectToAction("MyMeals");
+
         }
 
 
