@@ -205,28 +205,55 @@ namespace projekt.Controllers
 
 
 
-        [HttpGet]
+        //[HttpGet]
+        //public IActionResult Create()
+        //{
+
+        //    List<MealsDetailsViewModel> mealsDetailsViewModel = new List<MealsDetailsViewModel>();
+        //    List<Produkt> produkty = _dataMealsService.GetProducts().ToList();
+        //    var resault = Tuple.Create(produkty, mealsDetailsViewModel);
+        //    return View(resault);
+        //}
+        //[HttpPost]
+        //public IActionResult Create(List<MealsDetailsViewModel> mealsDetailsViewModel, [FromForm] string nazwa) {
+        //    //foreach (var item in daniaProdukty) {
+        //    //    if (daniaprodukt.IdDania == null || daniaprodukt.IdProduktu == null) {
+        //    //        danie.DaniaProdukty.Remove(daniaprodukt);
+        //    //    }
+        //    //}
+
+
+        //    //_db.Add(danie);
+        //    //_db.SaveChanges();
+        //    return RedirectToAction("MyMeals");
+
+        //}
+
         public IActionResult Create()
         {
+            List < Produkt > produkt = _dataMealsService.GetProducts().ToList();
             
-            List<MealsDetailsViewModel> mealsDetailsViewModel = new List<MealsDetailsViewModel>();
-            List<Produkt> produkty = _dataMealsService.GetProducts().ToList();
-            var resault = Tuple.Create(produkty, mealsDetailsViewModel);
-            return View(resault);
+            List<Produkt> posortowanaLista = produkt.OrderBy(p => p.Nazwa).ToList();
+            var model = new DanieViewModel
+            {
+                Produkty = posortowanaLista
+            };
+
+            return View(model);
         }
+
         [HttpPost]
-        public IActionResult Create(List<MealsDetailsViewModel> mealsDetailsViewModel, [FromForm] string nazwa) {
-            //foreach (var item in daniaProdukty) {
-            //    if (daniaprodukt.IdDania == null || daniaprodukt.IdProduktu == null) {
-            //        danie.DaniaProdukty.Remove(daniaprodukt);
-            //    }
-            //}
+        public IActionResult Create(DanieViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Przetwarzanie danych z modelu i zapis do bazy danych
 
+                return RedirectToAction("Index", "Home");
+            }
 
-            //_db.Add(danie);
-            //_db.SaveChanges();
-            return RedirectToAction("MyMeals");
-
+            // Jeśli wystąpił błąd, ponowne wyrenderowanie widoku z modelem
+            return View(model);
         }
 
         [HttpGet]

@@ -1,100 +1,22 @@
-﻿@using projekt.ViewModels;
-@{
-    @model Tuple<List<Produkt> ,List<MealsDetailsViewModel>>
+﻿@model projekt.ViewModels.DanieViewModel
 
-    var produktmoj = Model.Item1.FirstOrDefault();
-    var danie = new MealsDetailsViewModel() { ilosc = 10m, produkt = produktmoj };
-    Model.Item2.Add(danie);
-    <h2>Lista produktów</h2>
+<h2>Utwórz danie</h2>
 
-    @using (Html.BeginForm("Create", "Meals", FormMethod.Post))
-    {
-        <label> Nazwa</label>
-        <input type="text" id="nazwa" name="nazwa">
-        <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            Nazwa
-                        </th>
-                        <th>
-                            Ilość
-                        </th>
-                        <th>
-                            Kaloryczność
-                        </th>
-                        <th>
-                            Białko
-                        </th>
-                        <th>
-                            Tłuszcz
-                        </th>
-                        <th>
-                            Węglowodany
-                        </th>
-                        <th>
-                            Błonnik
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach (var item in Model.Item2)
-                {
-                    <tr>
-                        <td>
-                            <input disabled asp-for="@item.produkt.Nazwa" class = "form-control"/>
-                        </td>
-                        <td>
-                            <input disabled asp-for="@item.ilosc" class = "form-control"/>
-                        </td>
-                        <td>
-                            
-                            <input disabled asp-for="@item.produkt.Kaloryczność" class="form-control" />
-                        </td>
-                        <td>
-                            <input disabled asp-for="@item.produkt.Białko" class="form-control" />
-                        </td>
-                        <td>
-                            <input disabled asp-for="@item.produkt.Tłuszcz" class="form-control" />
-                        </td>
-                        <td>
-                            <input disabled asp-for="@item.produkt.Węglowodany" class="form-control" />
-                        </td>
-                        <td>
-                            <input disabled asp-for="@item.produkt.Błonnik" class="form-control" />
-                        </td>
-                        
-                    </tr>
-                }
-                <tr>
-                    <td>
-                        <input  class="form-control" />
-                    </td>
-                    <td>
-                        <input  class="form-control" />
-                    </td>
-                    <td>
-                        <input disabled  class="form-control" />
-                    </td>
-                    <td>
-                        <input disabled  class="form-control" />
-                    </td>
-                    <td>
-                        <input disabled  class="form-control" />
-                    </td>
-                    <td>
-                        <input disabled  class="form-control" />
-                    </td>
-                    <td>
-                        <input disabled  class="form-control" />
-                    </td>
-                    <td>
-                        <Button>+</Button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.NazwaDania)
+        @Html.TextBoxFor(model => model.NazwaDania, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.NazwaDania)
+    </div>
 
-        <button type="submit">Utwórz podlistę</button>
-    }
+    <h3>Produkty:</h3>
+    @Html.DropDownListFor(model => model.Produkty, new SelectList(Model.Produkty, "Id", "Nazwa"))
+        
+    
+
+        
+   <br/>
+
+    <input type="submit" value="Utwórz" class="btn btn-primary" />
 }

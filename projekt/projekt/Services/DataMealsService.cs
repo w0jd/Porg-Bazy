@@ -1,4 +1,6 @@
-﻿using projekt.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using projekt.Models;
+using projekt.ViewModels;
 using System.Diagnostics;
 
 namespace projekt.Services
@@ -11,6 +13,7 @@ namespace projekt.Services
         IEnumerable<Produkt> GetMealsDetails(int id);
         String GetMealName(int id);
         int DeleteMeal(int id);
+       
     }
 
     //service do odczytu produktow zaraz po starcie aplikacji
@@ -38,8 +41,9 @@ namespace projekt.Services
             return _mealsList;
         }
 
-        public IEnumerable<Produkt> GetProducts()
+        public  IEnumerable<Produkt> GetProducts()
         {
+            
             if (_productsList == null)
             {
                 _productsList = _context.Produkty.ToList();
@@ -127,5 +131,7 @@ namespace projekt.Services
             }
             return string.Empty;
         }
+
+        
     }
 }

@@ -2,12 +2,14 @@
 
 namespace projekt.ViewModels
 {
-    public class MealsDetailsViewModel
+    public class DanieViewModel
     {
-        
-        public Produkt produkt { get; set; } 
-        public decimal ilosc { get; set; } 
-       
+        [Required(ErrorMessage = "Nazwa dania jest wymagana.")]
+        public string? NazwaDania { get; set; }
 
+        public List<Produkt> Produkty { get; set; }
+        
+        public List<Decimal>? Ilosc { get; set; }
     }
+
 }
