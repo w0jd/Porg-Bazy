@@ -91,7 +91,7 @@ namespace projekt.Controllers
             _db.SaveChanges();
             var id=_db.Dania.Where(d => d.NazwaDania.Equals(nazwa)).FirstOrDefault();
              id_dania = _db.Dania.OrderBy(a => a.Id).Last();
-            ViewData["nazwa"]= plus1;
+            ViewData["nazwa"]= id_dania.Id;
             var wyniki = _db.Produkty;
             return View("CreateMeal", wyniki);
         }

@@ -34,7 +34,7 @@ namespace projekt.Controllers
              
 
 
-            return View(wynik);
+            return View(produkt);
         }
         [HttpGet]
         public IActionResult Login()
