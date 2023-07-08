@@ -1,10 +1,17 @@
-﻿.meal-info {
+﻿@media (max-width:767px) {
+    .div-content {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+.meal-info {
     height: auto;
-    display:none;
+    display: none;
 }
 
     .meal-info.show {
-        display:block;
+        display: block;
         height: auto;
     }
 
@@ -12,26 +19,35 @@
     background-color: lightblue;
     height: auto;
 }
-    div:after {
-        visibility: hidden;
-        display: block;
-        font-size: 0;
-        content: " ";
-        clear: both;
-        height: 0;
-    }
+
+.day-table div:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
 .meal-info {
     height: auto;
+    background-color:white;
+}
+
+.dark-theme .meal-info {
+    border: 1px solid red;
 }
 
 .meal-row:first-child {
     border-radius: 15px 15px 0px 0px;
     height: auto;
 }
+
 .meal-row:last-child {
     border-radius: 0px 0px 15px 15px;
     height: auto;
 }
+
 .table-head .danie {
     background-color: inherit;
     /*        height: 100%;*/
@@ -62,30 +78,35 @@
     width: 50%;
     float: left;
 }
+.dark-mode .meal-info {
+    background-color: #343a40;
+}
 
 .day-table {
-    position:relative;
+    position: relative;
     margin: 10px;
     float: left;
-    width: max(40%,300px);
-    /* max-height: 400px;*/
-    overflow-y: hidden;
+    min-width: 350px;
+    width: 45%;
+    min-height:400px;
+    max-height: 400px;
+    overflow-y: auto;
     height: auto;
 }
 
 .remove a {
     position: relative;
     width: 100%;
-    /*height: 100%;*/
-
+    height: 100%;
     height: auto;
 }
 
 #daily-summ {
     margin: 10px;
-    float: right;
+    float: left;
     position: relative;
-    width: max(40%,300px);
+    min-width: 350px;
+    width: 45%;
     height: auto;
 }
 
@@ -95,6 +116,57 @@
     display: inline-block;
     height: auto;
 }
-.table-head{
-    display:inline;
+
+.table-head {
+    display: inline;
+}
+/* ===== Scrollbar CSS ===== */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #464646 #bcb8b8;
+}
+    /**/
+    *::-webkit-scrollbar {
+        width: 0px;
+    }
+/*progres bar*/
+.widok__bar {
+    position: relative;
+    width: 100%;
+    margin: 0.2em;
+    height: 1.5em;
+    border-radius: 50vw;
+    background: repeating-linear-gradient(-45deg, gray, gray 25%, #676767 25%, #676767 50%, gray 50%) top left fixed;
+    background-size: 25px 25px;
+}
+
+    .widok__bar p {
+        margin: 0px;
+        padding: 0px;
+        text-align: center;
+        color: wheat;
+        z-index: 3;
+        position: relative;
+    }
+
+    .widok__bar .progress {
+        position: absolute;
+        height: 100%;
+        border-radius: 50vh;
+        background: repeating-linear-gradient(-45deg, blue, blue 25%, #0000cc 25%, #0000cc 50%, blue 50%) top left fixed;
+        background-size: 25px 25px;
+        width: 0%;
+        z-index: 2;
+        transition: width 2s;
+    }
+
+.overfull {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    border-radius: 50vh;
+    background: repeating-linear-gradient(-45deg, red, red 25%, #cc0000 25%, #cc0000 50%, red 50%) top left fixed;
+    background-size: 25px 25px;
+    transition-timing-function: linear;
+    transition: width 2s;
 }

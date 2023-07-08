@@ -7,7 +7,9 @@ html {
     html {
         font-size: 16px;
     }
+
 }
+
 
 html {
     position: relative;
@@ -39,8 +41,9 @@ ul {
 
 .dark-mode {
     color: rgba(255,255,255,.87) !important;
-    background: #343a40 !important;
+    background-color: #343a40 !important;
 }
+
 
 #dark-toggle {
     align-self: flex-end;
