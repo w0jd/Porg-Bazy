@@ -1,0 +1,100 @@
+﻿.meal-info {
+    height: auto;
+    display:none;
+}
+
+    .meal-info.show {
+        display:block;
+        height: auto;
+    }
+
+.meal-row {
+    background-color: lightblue;
+    height: auto;
+}
+    div:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
+.meal-info {
+    height: auto;
+}
+
+.meal-row:first-child {
+    border-radius: 15px 15px 0px 0px;
+    height: auto;
+}
+.meal-row:last-child {
+    border-radius: 0px 0px 15px 15px;
+    height: auto;
+}
+.table-head .danie {
+    background-color: inherit;
+    /*        height: 100%;*/
+    float: left;
+    position: relative;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    height: auto;
+}
+
+.table-head .remove {
+    background-color: inherit;
+    /*height: 100%;*/
+    float: right;
+    position: relative;
+    width: 10%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    height: auto;
+}
+
+.meal-info p, #daily-summ p {
+    width: 50%;
+    float: left;
+}
+
+.day-table {
+    position:relative;
+    margin: 10px;
+    float: left;
+    width: max(40%,300px);
+    /* max-height: 400px;*/
+    overflow-y: hidden;
+    height: auto;
+}
+
+.remove a {
+    position: relative;
+    width: 100%;
+    /*height: 100%;*/
+
+    height: auto;
+}
+
+#daily-summ {
+    margin: 10px;
+    float: right;
+    position: relative;
+    width: max(40%,300px);
+    height: auto;
+}
+
+
+.bottom-nav {
+    width: 100%;
+    display: inline-block;
+    height: auto;
+}
+.table-head{
+    display:inline;
+}
