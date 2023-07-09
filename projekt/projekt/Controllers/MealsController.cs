@@ -193,7 +193,7 @@ namespace projekt.Controllers
             return View(resault);
         }
         [HttpPost]
-        public IActionResult CreateMeal (string nazwa/*List<Produkt> produkty, List<decimal> ilosc*/) {
+        public IActionResult CreateMeal(string nazwa/*List<Produkt> produkty, List<decimal> ilosc*/) {
             //tutaj logika tworzenie dania 
             return RedirectToAction("MyMeals");
         }
@@ -231,10 +231,50 @@ namespace projekt.Controllers
 
         //}
 
+        [HttpGet]
+        [Route("MealsController/GetProductValues/{id}")]
+        public ActionResult<List<decimal>> GetProductValues([FromBody] int id)
+        {
+
+            // Logika do pobrania listy decimal na podstawie id
+            List<decimal> resultList = GetProductsDetails(id);
+            return resultList == null ? NotFound() : Ok(resultList); ;
+        }
+        [HttpPost]
+        //[Route("MealsController/GetProductValues2")]
+        public ActionResult<int> GetProductValues2( )
+        {
+            return 5;
+        }
+
+        private List<decimal> GetProductsDetails( int id) {
+
+            Produkt szukanyProdukt = _dataMealsService.GetProducts().ToList().Find(produkt => produkt.Id == id);
+            List<decimal> detale = new List<decimal>
+            {
+                (decimal)szukanyProdukt.Kaloryczność,
+                (decimal)szukanyProdukt.Białko,
+                (decimal)szukanyProdukt.Tłuszcz,
+                (decimal)szukanyProdukt.Węglowodany,
+                (decimal)szukanyProdukt.Błonnik,
+
+            };
+
+            return detale;
+
+        }
+
         public IActionResult Create()
         {
             
             ViewBag.ProduktyLista = GetProductsSelect();
+            List<Produkt> produkt1 = _dataMealsService.GetProducts().ToList();
+            var modifiedList = produkt1.Select(p => new { Id = p.Id, Kaloryczność = p.Kaloryczność }).ToList();
+            ViewBag.Kalorycznosc= modifiedList;
+            ViewBag.Bialko= GetProductsSelect();
+            ViewBag.Tluszcz= GetProductsSelect();
+            ViewBag.Weglowodany= GetProductsSelect();
+            ViewBag.Blonnik= GetProductsSelect();
             List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
             Produkt nowy = produkt.FirstOrDefault();
             var model = new DanieViewModel();
@@ -247,6 +287,11 @@ namespace projekt.Controllers
 
             return View(model);
         }
+
+        //private dynamic GetKalorycznosc()
+        //{
+        //    List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
+        //}
 
         private List<SelectListItem> GetProductsSelect()
         {
