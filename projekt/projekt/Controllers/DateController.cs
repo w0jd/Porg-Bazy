@@ -86,7 +86,7 @@ namespace projekt.Controllers
             var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
             var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a => a.DaniaProdukty).ThenInclude(a => a.Produkty).OrderBy(a => a.Dzień);
             @ViewData["Date"] = startOfWeek;
-            return View("WeekMeals");
+            return View("WeekMeals",jadlo);
         }
         public IActionResult nextWeek(string czas)
         {
@@ -109,7 +109,7 @@ namespace projekt.Controllers
             var idKOnta = _context.Konta.First(a => a.Nazwa == userName);
             var jadlo = _context.Jadlospis.Where(j => j.Dzień >= startOfWeek && j.Dzień < endOfWeek && j.IdKonta == idKOnta.Id).Include(a => a.Dania).ThenInclude(a => a.DaniaProdukty).ThenInclude(a => a.Produkty).OrderBy(a=>a.Dzień);
             @ViewData["Date"] = startOfWeek;
-            return View("WeekMeals");
+            return View("WeekMeals",jadlo);
         }
     }
 }
