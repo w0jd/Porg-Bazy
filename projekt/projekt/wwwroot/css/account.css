@@ -16,6 +16,7 @@
     }
 
 .meal-row {
+    transition: 1s;
     background-color: lightblue;
     height: auto;
 }
@@ -31,7 +32,7 @@
 
 .meal-info {
     height: auto;
-    background-color:white;
+    background-color: #e6ffe6;
 }
 
 .dark-theme .meal-info {
@@ -41,11 +42,19 @@
 .meal-row:first-child {
     border-radius: 15px 15px 0px 0px;
     height: auto;
+    transition:0.5s;
 }
 
 .meal-row:last-child {
     border-radius: 0px 0px 15px 15px;
     height: auto;
+    transition: 0.5s;
+}
+.meal-row:only-child {
+
+    border-radius: 15px;
+    height: auto;
+    
 }
 
 .table-head .danie {
@@ -100,7 +109,31 @@
     height: 100%;
     height: auto;
 }
+.day-table h3{
+    display:block;
+    width:60%;
+    float:left;
 
+}
+#tab{
+    float:left;
+    width:100%;
+}
+
+.day-table #dodaj{
+    margin:0 0 8px;
+    padding:0;
+    width:40%;
+    float:left;
+    height:2em;
+    border: 1px solid black;
+    border-radius:4px;
+    background-color:inherit;
+}
+.dark-mode .day-table #dodaj {
+    border: 1px solid rgba(255,255,255,.87);
+    color: rgba(255,255,255,.87);
+}
 #daily-summ {
     margin: 10px;
     float: left;
@@ -109,8 +142,16 @@
     width: 45%;
     height: auto;
 }
+.bottom-nav button{
+    display:inline;
+    float:left;
+    margin-bottom:5px;
+}
 
-
+.bottom-nav a{
+    margin:5px;
+    float:left;
+}
 .bottom-nav {
     width: 100%;
     display: inline-block;
@@ -144,7 +185,7 @@
         margin: 0px;
         padding: 0px;
         text-align: center;
-        color: wheat;
+        color: white;
         z-index: 3;
         position: relative;
     }
