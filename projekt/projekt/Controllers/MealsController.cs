@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using projekt.Models;
 using projekt.Services;
@@ -231,15 +233,42 @@ namespace projekt.Controllers
 
         public IActionResult Create()
         {
-            List < Produkt > produkt = _dataMealsService.GetProducts().ToList();
             
-            List<Produkt> posortowanaLista = produkt.OrderBy(p => p.Nazwa).ToList();
-            var model = new DanieViewModel
-            {
-                Produkty = posortowanaLista
-            };
+            ViewBag.ProduktyLista = GetProductsSelect();
+            List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
+            Produkt nowy = produkt.FirstOrDefault();
+            var model = new DanieViewModel();
+            model.Produkty.Add(new Produkt() { Id = 1});
+            //var model = new DanieViewModel
+            //{
+            //    Produkty = posortowanaLista,
+            //    IdProduktu = new List<int>() { 1, 2, 3 }
+            //};
 
             return View(model);
+        }
+
+        private List<SelectListItem> GetProductsSelect()
+        {
+            var lstProducts = new List<SelectListItem>();
+            List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
+            List<Produkt> products = produkt.OrderBy(p => p.Nazwa).ToList();
+
+            lstProducts = products.Select(ut => new SelectListItem()
+            {
+                Value = ut.Id.ToString(),
+                Text = ut.Nazwa.ToString()
+            }).ToList();
+
+            var defItem = new SelectListItem()
+            {
+                Value = "",
+                Text = "Wybierz Produkt"
+            };
+
+            lstProducts.Insert(0, defItem);
+
+            return lstProducts;
         }
 
         [HttpPost]
@@ -247,9 +276,9 @@ namespace projekt.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Przetwarzanie danych z modelu i zapis do bazy danych
+                //tutaj logika zapisu do bazy danych
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Meals", "MyMeals");
             }
 
             // Jeśli wystąpił błąd, ponowne wyrenderowanie widoku z modelem

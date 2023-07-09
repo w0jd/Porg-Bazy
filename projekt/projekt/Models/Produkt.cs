@@ -2,7 +2,7 @@
 {
     public class Produkt
     {
-        [Required]
+        //[Required]
         [Key]
         public int Id { get; set; }
         [StringLength(maximumLength: 61)]
@@ -17,6 +17,8 @@
         public float ? Węglowodany { get; set; }
         [StringLength(maximumLength: 7)]
         public float ? Błonnik { get; set; }
-       public ICollection<DaniaProdukty> DaniaProdukty { get; set; }
+       public ICollection<DaniaProdukty>? DaniaProdukty { get; set; }
+        [NotMapped]
+        public bool IsDeleted { get; set; } = false;
     }
 }
