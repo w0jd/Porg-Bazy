@@ -13,30 +13,28 @@
 
 <div class="card">
     <div class="card-header bg-success text-uppercase text-white text-center mb-2 pt-0" style="height:25px;">
-        <h6>Utwórz danie</h6>
+        <h6>Edytuj danie</h6>
     </div>
 
 
-    <form id="CodeSbyAnizForm" asp-action="Create">
+    <form id="Edit-Meal" asp-action="Create">
 
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
-        <label asp-for="NazwaDania" class="control-label"></label>
+        <label asp-for="NazwaDania" class="control-label">Nazwa Dania</label>
 
         <input asp-for="NazwaDania" class="form-control" />
-        @*<span asp-validation-for="PoNumber" class="text-danger"></span> *@
 
 
 
-
-        <div class="col-12 ml-5">
+        <div class="edit-table">
             <table id="TabelaGlowna" class="table table-borderless table-sm mb-0 pb-0">
                 <thead>
                     <tr>
                         <th>
-                            Nazwa
+                            Nazwa Produktu
                         </th>
                         <th>
                             Ilość[g/ml]
@@ -58,7 +56,7 @@
                         </th>
                         <th style="width:60px;">
                             <button id='btnAddDetailRow' type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem(this)">
-                                Add
+                                Dodaj
                             </button>
                         </th>
                     </tr>
@@ -97,7 +95,7 @@
                             </td>
                             <td style="width:60px;">
                                 <button id='btnremove-@i' type="button" class="btn btn-sm btn-danger visible" onclick="DeleteItem(this)">
-                                    Delete
+                                    Usuń
                                 </button>
                             </td>
                         </tr>
@@ -160,11 +158,11 @@
         <div class="form-group btn-group col-12">
             <div class="col-1"></div>
             <div class="col-5">
-                <input type="submit" asp-action="Create" value="Create" class="btn btn-primary btn-block" />
+                <input type="submit" asp-action="Create" value="Edytuj" class="btn btn-primary btn-block" />
             </div>
             <div class="col-5">
                 <a class="btn btn-secondary btn-block" asp-action="MyMeals"
-                   asp-route-pg="@TempData.Peek("CurrentPage")">Back</a>
+                   asp-route-pg="@TempData.Peek("CurrentPage")">Wstecz</a>
             </div>
             <div class="col-1"></div>
         </div>
