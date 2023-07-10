@@ -129,19 +129,19 @@
                             <input type="text" id="bialko_total" class="form-control form-control-plaintext" value="" />
                         </th>
 
-                        <th style="width:13%;">
+                        <th class ="wlasciwosclisty">
                             <input type="text" id="tluszcz_total" class="form-control form-control-plaintext" value="" />
                         </th>
 
-                        <th style="width:13%;">
+                        <th class="wlasciwosclisty">
                             <input type="text" id="weglo_total" class="form-control form-control-plaintext" value="" />
                         </th>
 
-                        <th style="width:13%;">
+                        <th class="wlasciwosclisty">
                             <input type="text" id="blonnik_total" class="form-control form-control-plaintext" value="" />
                         </th>
 
-                        <th style="width:9%;">
+                        <th class="wlasciwosclisty">
                         </th>
                     </tr>
 
@@ -201,7 +201,7 @@
         //        }
             
         //    }
-    
+
 
         function FillValues(item) {
             console.log("Wypelniam")
@@ -211,7 +211,7 @@
             var number = 100;
             if (match) {
                 number = parseInt(match[0]);
-            } else {
+            } else { 
             }
 
             var id_kalorycznosc = "Produkty_" + number + "__Kaloryczno__";
@@ -274,7 +274,7 @@
             var bialko = document.getElementById(id_bialko).value;
             document.getElementById(id_bialko).value = (parseFloat(ilosc, 10) * parseFloat(bialko, 10) / 100).toFixed(2)
             var tluszcz = document.getElementById(id_tluszcz).value;
-            
+
             document.getElementById(id_tluszcz).value = (parseFloat(ilosc, 10) * parseFloat(tluszcz, 10) / 100).toFixed(2)
             var weglo = document.getElementById(id_weglo).value;
             document.getElementById(id_weglo).value = (parseFloat(ilosc, 10) * parseFloat(weglo, 10) / 100).toFixed(2)
@@ -340,7 +340,7 @@
         function CalcTotals() {
 
             var x = document.getElementsByClassName('ilosc_class');
-            
+
             var ilosc_total = 0;
             var ilosc_kalorie = 0;
             var ilosc_bialko = 0;
@@ -387,21 +387,21 @@
             return;
         }
 
-        //document.addEventListener('change', function (e) {
-        //    if (event.target.id.indexOf('ProductCode') >= 0) {
-        //        SetUnitName(event.target);
-        //    }
+                    //document.addEventListener('change', function (e) {
+                    //    if (event.target.id.indexOf('ProductCode') >= 0) {
+                    //        SetUnitName(event.target);
+                    //    }
 
-        //}, false);
+                    //}, false);
 
-        //document.addEventListener('change', function (e) {
-        //    if (e.target.classList.contains('do_zmiany')) {
-        //        CalcTotals();
-        //    }
-        //}
-        //    , false);
+                    //document.addEventListener('change', function (e) {
+                    //    if (e.target.classList.contains('do_zmiany')) {
+                    //        CalcTotals();
+                    //    }
+                    //}
+                    //    , false);
 
 
     </script>
 
-}
+    }

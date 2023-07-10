@@ -47,10 +47,11 @@
 }
 #btnAddDetailRow{
     float:right;
+    width:100%
 }
 td button{
     float:right;
-    width:auto;
+    width:100%;
     margin:3px 0;
 }
 .dark-mode .btn-outline-dark
@@ -72,11 +73,9 @@ td button{
     width: 8%
 }
 td,th{
-    min-width:10vw;
+    min-width:60px;
 }
-    td:last-child, th:last-child {
-        min-width: 5vh;
-    }
+
 table{
     row-gap:1em;
 }
