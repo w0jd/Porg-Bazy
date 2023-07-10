@@ -2,21 +2,23 @@
 {
     public class Produkt
     {
-        [Required]
+        //[Required]
         [Key]
         public int Id { get; set; }
         [StringLength(maximumLength: 61)]
-        public string ?Nazwa { get; set; }
+        public string? Nazwa { get; set; }
         [StringLength(maximumLength: 12)]
-        public float ? Kaloryczność { get;set; }
+        public float? Kaloryczność { get; set; }
         [StringLength(maximumLength: 6)]
-        public float ? Białko { get; set; }
+        public float? Białko { get; set; }
         [StringLength(maximumLength: 7)]
-        public float ? Tłuszcz { get; set; }
+        public float? Tłuszcz { get; set; }
         [StringLength(maximumLength: 11)]
-        public float ? Węglowodany { get; set; }
+        public float? Węglowodany { get; set; }
         [StringLength(maximumLength: 7)]
-        public float ? Błonnik { get; set; }
-       public ICollection<DaniaProdukty> DaniaProdukty { get; set; }
+        public float? Błonnik { get; set; }
+        public ICollection<DaniaProdukty>? DaniaProdukty { get; set; }
+        [NotMapped]
+        public bool IsDeleted { get; set; } = false;
     }
 }

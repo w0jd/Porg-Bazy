@@ -32,7 +32,12 @@
 
 
 
-
+@if (TempData["Komunikat"] != null)
+{
+    <div id ="alert" class="alert alert-success" style="text-align:center; background-color:indianred">
+        <b>@TempData["Komunikat"]</b>
+    </div>
+}
 
 
 <div class="container">
@@ -83,11 +88,19 @@
             <tbody>
                 @foreach (var item in Model.Item2)
                 {
-                List<decimal> wartosc = new List<decimal>();
-                    wartosc.AddRange(dania_detale_suma[0]);
+                    List<decimal> wartosc = new List<decimal>();
+
+                    if (dania_detale_suma[0].Count() == 0)
+                    {
+                        wartosc.AddRange(Enumerable.Repeat(0m, 5));
+                    }
+                    else
+                    {
+                        wartosc.AddRange(dania_detale_suma[0]);
+
+                    }
+                    
                     dania_detale_suma.RemoveAt(0);
-
-
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.NazwaDania)
@@ -154,3 +167,16 @@
     <partial name="_pager" model="@pager" />
 
 </div>
+
+<script>
+    var alertElement = document.querySelector(".alert");
+
+    // Sprawdź, czy element alertu istnieje
+    if (alertElement) {
+        // Ukryj alert po 3 sekundach
+        setTimeout(function () {
+            alertElement.style.display = "none";
+        }, 3000);
+    }
+
+</script>

@@ -8,11 +8,11 @@ namespace Projekt.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 
         {
-           
+
         }
-        
+
         public DbSet<Produkt> Produkty { get; set; }
-        public DbSet<Konto> Konta{ get; set; }
+        public DbSet<Konto> Konta { get; set; }
         public DbSet<Dania> Dania { get; set; }
         public DbSet<Jadlospis> Jadlospis { get; set; }
         public DbSet<DaniaProdukty> DaniaProdukty { get; set; }
@@ -29,7 +29,7 @@ namespace Projekt.Data
                 .HasForeignKey(pc => pc.IdDania);
 
             modelBuilder.Entity<Jadlospis>()
-                .HasKey(pc => new { pc.IdDania, pc.IdKonta ,pc.IdJadlospis});
+                .HasKey(pc => new { pc.IdDania, pc.IdKonta, pc.IdJadlospis });
 
             modelBuilder.Entity<Produkt>()
                 .HasMany(p => p.DaniaProdukty)
