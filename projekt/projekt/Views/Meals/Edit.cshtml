@@ -100,18 +100,6 @@
                             </td>
                         </tr>
                     }
-                </tbody>
-
-            </table>
-            <div>
-                <div class="form-group col-12">
-                </div>
-
-                <div class="form-group col-12">
-                </div>
-            </div>
-            <table class="table table-sm mb-0 pb-0 border">
-                <thead>
                     <tr>
                         <th style="width:30%;">
                             Suma
@@ -145,7 +133,7 @@
                         </th>
                     </tr>
 
-                </thead>
+                </tbody>
             </table>
 
 
@@ -308,9 +296,9 @@
             var table;
             table = document.getElementById('TabelaGlowna');
             var rows = table.getElementsByTagName('tr');
-            var rowOuterHtml = rows[rows.length - 1].outerHTML;
+            var rowOuterHtml = rows[rows.length - 2].outerHTML;
 
-            var lastrowIdx = rows.length - 2;
+            var lastrowIdx = rows.length - 3;
 
             var nextrowIdx = eval(lastrowIdx) + 1;
 
@@ -318,7 +306,7 @@
             rowOuterHtml = rowOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
             rowOuterHtml = rowOuterHtml.replaceAll('-' + lastrowIdx, '-' + nextrowIdx);
 
-            var newRow = table.insertRow();
+            var newRow = table.insertRow(nextrowIdx + 1);
             newRow.innerHTML = rowOuterHtml;
 
             var x = document.getElementsByTagName("INPUT");
