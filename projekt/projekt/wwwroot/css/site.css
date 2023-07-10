@@ -24,11 +24,8 @@ footer {
     position:absolute;
     bottom: 0px!important;
     background:inherit;
-    padding:0.5em 5vw 0.5em 5vw!important;
+    padding:0.5em 0px 0.5em 0px!important;
     width: 100%;
-}
-footer p{
-    margin:0;
 }
 
 .list {
