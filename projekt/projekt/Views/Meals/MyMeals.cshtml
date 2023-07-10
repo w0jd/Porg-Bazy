@@ -44,7 +44,12 @@
     </div>
 
 
-
+@if (TempData["Komunikat"] != null)
+{
+    <div id ="alert" class="alert alert-success" style="text-align:center; background-color:indianred">
+        <b>@TempData["Komunikat"]</b>
+    </div>
+}
 
 
 <div class="container">
@@ -162,3 +167,16 @@
     <partial name="_pager" model="@pager" />
 
 </div>
+
+<script>
+    var alertElement = document.querySelector(".alert");
+
+    // Sprawdź, czy element alertu istnieje
+    if (alertElement) {
+        // Ukryj alert po 3 sekundach
+        setTimeout(function () {
+            alertElement.style.display = "none";
+        }, 3000);
+    }
+
+</script>
