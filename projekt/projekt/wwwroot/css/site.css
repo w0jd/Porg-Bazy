@@ -1,18 +1,80 @@
+@import "account.css";
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
+
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin-bottom: 2em!important;
+    background-color: #e6ffe6!important;
+}
+footer {
+    display:block;
+    position:absolute;
+    bottom: 0px!important;
+    background:inherit;
+    padding:0.5em 0px 0.5em 0px!important;
+    width: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+.list {
+    display: none;
+    position: absolute;
+    padding: 5px;
+    z-index: 5;
+    width: fit-content;
+    background-color: #17a2b8;
 }
+
+li:hover .list {
+    transition: 0.5s;
+    display: block;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+.dark-mode {
+    color: rgba(255,255,255,.87) !important;
+    background-color: #343a40 !important;
+}
+    .dark-mode .pagination .page-link{
+        background: #343a40;
+        color:white
+    }
+.pagination .page-link {
+    background-color: #e6ffe6 ;
+    color: #0353a8;
+}
+.pagination .page-item.active .page-link {
+    background-color: #ccffcc ;
+    color: #00f;
+}
+.dark-mode .pagination .page-item.active .page-link {
+    background-color: #3c4349;
+    color: white;
+}
+.dark-mode .table {
+    color:#b8cee4;
+}
+
+.pagination{
+    margin: 1em;
+}
+
+#dark-toggle {
+    align-self: flex-end;
+}
+

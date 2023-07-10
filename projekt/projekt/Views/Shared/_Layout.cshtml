@@ -9,6 +9,8 @@
     <title>@ViewData["Title"] - projekt</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/projekt.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"> @*tutaj sa styl css do ikonek*@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
@@ -21,31 +23,10 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <style>
-        .list {
-            display: none;
-            position: absolute;
-            padding: 5px;
-            z-index: 1;
-        }
-
-        li:hover .list {
-            display: block;
-            
-        }
-
-        ul {
-            list-style-type: none;
-        }
-        .dark-mode{
-            color:rgba(255,255,255,.87);
-            background:#121212;
-        }
-    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-info ">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">projekt</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -61,14 +42,16 @@
                             <li class="nav-item">
                                  <a class="nav-link text-black" asp-controller="Account" asp-action="Logout">Wyloguj</a>
                             </li>
-
-                            <li class="nav-item" style="position: relative;">
+                            <li class="nav-item"  style="position: relative;">
+                                
                                 <a class="nav-link text-black">Posiłki</a>
+                                <div id="li-exp">
                                 <ul class="list">
                                     <li><a class="nav-link text-black" asp-area="" asp-controller="Meals" asp-action="MyMeals">Moje</a></li>
+                                    <li><a class="nav-link text-black" asp-area="" asp-controller="Meals" asp-action="NameMeal">Dadaj posiłek</a></li>
                                     <li><a class="nav-link text-black" asp-area="" asp-controller="Meals" asp-action="Products">Produkty</a></li>
                                 </ul>
-                                
+                                </div>
                              </li>
                         }
                         else{
@@ -84,56 +67,44 @@
                         }
                         
                     </ul>
-                    <div class="custom-control custom-switch mr-5">
-                        <input type="checkbox" class="custom-control-input theme-toggle save-cb-state" name="mycheckbox" value="yes" id="theme-toggle" onclick="themeToggle()" />
+                    <div class="custom-control custom-switch mr-5" id="dark-toggle">
+                        <input type="checkbox" class="custom-control-input theme-toggle save-cb-state" name="mycheckbox"id="theme-toggle" onclick="themeToggle()" />
                         <label class="custom-control-label" for="theme-toggle">Tryb Ciemny</label>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-main">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
     <script>
         (function () {
-            // variable to store our current state
             var cbstate;
 
-            // bind to the onload event
             window.addEventListener('load', function () {
-                // Get the current state from localstorage
-                // State is stored as a JSON string
                 cbstate = JSON.parse(localStorage['CBState'] || '{}');
 
-                // Loop through state array and restore checked
-                // state for matching elements
                 for (var i in cbstate) {
                     var el = document.querySelector('input[name="' + i + '"]');
                     if (el) el.checked = true;
                 }
 
-                // Get all checkboxes that you want to monitor state for
                 var cb = document.getElementsByClassName('save-cb-state');
 
-                // Loop through results and ...
                 for (var i = 0; i < cb.length; i++) {
 
-                    //bind click event handler
                     cb[i].addEventListener('click', function (evt) {
-                        // If checkboxe is checked then save to state
                         if (this.checked) {
                             cbstate[this.name] = true;
                         }
-
-                        // Else remove from state
+                        
                         else if (cbstate[this.name]) {
                             delete cbstate[this.name];
                         }
 
-                        // Persist state
                         localStorage.CBState = JSON.stringify(cbstate);
                     });
                 }
@@ -141,11 +112,14 @@
         })();
         var tSwitcher = document.querySelectorAll("[class^=theme-switcher]");
         let element = document.body, onpageLoad = localStorage.getItem("theme") || "";
+        
         if (null != onpageLoad && "dark-mode" == onpageLoad)
             for (let e = 0; e < tSwitcher.length; e++)tSwitcher[e].checked = !0;
             function themeToggle() {
                 event.target.checked ? (localStorage.setItem("theme", "dark-mode"), tSwitcher.forEach(function (e) {
-                    element.classList.add("dark-mode"), e.checked = !0 
+                    console.log(element.classList);
+                    element.classList.add("dark-mode"), e.checked = !0
+                
                 })) : (localStorage.setItem("theme", ""), tSwitcher.forEach(function (e) {
                     element.classList.remove("dark-mode"), e.checked = !1 })) 
             } onpageLoad && element.classList.add(onpageLoad);
@@ -153,14 +127,13 @@
                 let onpageLoad = localStorage.getItem("theme") || "";
                 let element = document.body;
                 element.classList.add(onpageLoad);
-                document.getElementById("theme").textContent =
-                    localStorage.getItem("theme") || "light";
+                document.getElementById("theme").textContent = localStorage.getItem("theme") || "light";
             })();
 
         function themeToggle() {
             let element = document.body;
             element.classList.toggle("dark-mode");
-
+            
             let theme = localStorage.getItem("theme");
             if (theme && theme === "dark-mode") {
                 localStorage.setItem("theme", "");
@@ -177,7 +150,7 @@
     </script>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - projekt - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - projekt - <a asp-area="" asp-controller="Home" asp-action="Privacy">Informacje</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

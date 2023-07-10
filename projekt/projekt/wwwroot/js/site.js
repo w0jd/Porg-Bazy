@@ -1,4 +1,13 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿lista = document.querySelectorAll("button.danie");
+dania = document.querySelectorAll("div.meal-info")
+var t = 0;
 
-// Write your JavaScript code.
+
+for (var i = 0; i < lista.length; i++) {
+
+    lista[i].onclick = function (t) {
+        parent = this.parentNode;
+        sibling = parent.nextElementSibling;
+        sibling.classList.toggle("show")
+    }
+}

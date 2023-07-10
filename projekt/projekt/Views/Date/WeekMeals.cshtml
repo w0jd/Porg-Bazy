@@ -1,0 +1,130 @@
+﻿
+@{
+    double? kcal = 0;
+    double? fat = 0;
+    double? carbs = 0;
+    double? protein = 0;
+    DateOnly date;
+    DateOnly.TryParse(@ViewData["Date"]?.ToString(), out date);
+    string str = date.ToString();
+    List<string> days = new List<string>();
+    double? meal_kcal = 0;
+    double? meal_fat = 0;
+    double? meal_carbs = 0;
+    double? meal_protein = 0;
+    
+    bool next = false;
+}
+@model IEnumerable<Jadlospis>
+
+
+@if (Model.Count() == 0)
+{
+    <p>Pusto</p>
+
+}
+else
+{
+    foreach (var jadlo in Model)
+    {
+
+        @if (!days.Contains(@jadlo.Dzień.ToString())&& next)
+        {
+            next = false;
+            @:</div>
+            @:</div>
+        }
+        @if (!days.Contains(@jadlo.Dzień.ToString()))
+            {
+            next = true;
+            @:<div class="day-table">
+                days.Add(@jadlo.Dzień.ToString());
+
+                <h3>@jadlo.Dzień</h3>
+                @:<div id="tab">
+            }
+        
+            
+            
+                
+            
+                <div class="meal-row">
+                    <div class="table-head">
+                        <button class="danie">@jadlo.Dania.NazwaDania</button>
+                    @foreach (var prod in jadlo.Dania.DaniaProdukty)
+                    {
+                        
+
+
+                                
+
+                                
+                                    meal_kcal = 0;
+                                    meal_fat = 0;
+                                    meal_carbs = 0;
+                                    meal_protein = 0;
+                                    @foreach (var dapro in prod?.Dania?.DaniaProdukty)
+                                    {
+
+
+                                        meal_kcal += dapro.Produkty.Kaloryczność;
+                                        meal_fat += dapro.Produkty.Tłuszcz;
+                                        meal_carbs += dapro.Produkty.Węglowodany;
+                                        meal_protein += dapro.Produkty.Białko;
+
+
+
+                                    }
+                                    kcal += meal_kcal;
+                                    fat += meal_fat;
+                                    carbs += meal_carbs;
+                                    protein += meal_protein;
+                                
+                    }
+                    </div>
+                            
+                            <div class="meal-info">
+                                <div class="kalorycznosc ">
+                                    <p>kalorie</p>
+                                    <p>@Math.Round((decimal)(meal_kcal),2)</p>
+                                </div>
+                                <div class="tluszcz ">
+                                    <p>tłuszcz</p>
+                                    <p>@Math.Round((decimal)(meal_fat),2)</p>
+                                </div>
+                                <div class="weglowodany">
+                                    <p>węglowodany</p>
+                                    <p>@Math.Round((decimal)(meal_carbs),2)</p>
+                                </div>
+                                <div class="bialko">
+                                    <p>białko</p>
+                                    <p>@Math.Round((decimal)(meal_protein),2)</p>
+                                </div>
+                            </div>                        
+                </div>
+            
+        
+        
+    }
+    @:</div>
+    @:</div>
+}
+
+
+<div class="bottom-nav">
+
+    <form method="post" asp-controller="Date" asp-action="previousWeek">
+        <input style="display:none" type="text" name="czas" value="@ViewData["Date"]">
+        <button type="submit">poprzedni</button>
+
+    </form>
+    @if (@date != DateOnly.FromDateTime(DateTime.Now))
+    {
+        <form method="post" asp-controller="Date" asp-action="nextWeek">
+            <input style="display:none" type="text" name="czas" value="@ViewData["Date"]">
+
+            <button type="submit">nastepny</button>
+        </form>
+    }
+
+</div>

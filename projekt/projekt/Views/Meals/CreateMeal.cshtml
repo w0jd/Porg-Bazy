@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Produkt>
+@{
+    ViewData["Title"] = "CreateMeal";
+   // TempData["id"] = ViewData["nazwa"];
+}
+
+<h1>CreateMeal</h1>
+
+<div class="left-div">
+    <table class="table">
+        <thead>
+
+  @*          <tr>
+                            @foreach (var item in Model)
+            {
+                @foreach (var dapro in item.DaniaProdukty){
+                <th>
+                    @Html.DisplayNameFor(model => model.Nazwa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Kaloryczność)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Białko)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tłuszcz)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Węglowodany)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Błonnik)
+                </th>
+                <th></th>}}*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nazwa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Kaloryczność)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Białko)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tłuszcz)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>item.Węglowodany)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>item.Błonnik)
+                    </td>
+                   
+                    @{
+                        string rozdziel = $"{ViewData["nazwa"]}_{item.Id}";
+                    }
+                    <td><a asp-action="Add" asp-controller="Meals" asp-route-id="@rozdziel">dodaj</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
