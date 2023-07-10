@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using projekt.Models;
 using projekt.Services;
 using projekt.ViewModels;
+using System;
+using System.Diagnostics;
 
 namespace projekt.Controllers
 {
@@ -227,21 +230,7 @@ namespace projekt.Controllers
 
         //}
 
-        [HttpGet]
-        [Route("MealsController/GetProductValues/{id}")]
-        public ActionResult<List<decimal>> GetProductValues([FromBody] int id)
-        {
-
-            // Logika do pobrania listy decimal na podstawie id
-            List<decimal> resultList = GetProductsDetails(id);
-            return resultList == null ? NotFound() : Ok(resultList); ;
-        }
-        [HttpPost]
-        //[Route("MealsController/GetProductValues2")]
-        public ActionResult<int> GetProductValues2()
-        {
-            return 5;
-        }
+        
 
         private List<decimal> GetProductsDetails(int id)
         {
@@ -266,29 +255,36 @@ namespace projekt.Controllers
 
             ViewBag.ProduktyLista = GetProductsSelect();
             List<Produkt> produkt1 = _dataMealsService.GetProducts().ToList();
-            //var modifiedList = produkt1.Select(p => new { Id = p.Id, Kaloryczność = p.Kaloryczność }).ToList();
+            
             ViewBag.Kalorycznosc = produkt1.Select(p => new { Id = p.Id, Kaloryczność = p.Kaloryczność }).ToList();
             ViewBag.Bialko = produkt1.Select(p => new { Id = p.Id, Bialko = p.Białko }).ToList();
             ViewBag.Tluszcz = produkt1.Select(p => new { Id = p.Id, Tluszcz = p.Tłuszcz }).ToList();
             ViewBag.Weglowodany = produkt1.Select(p => new { Id = p.Id, Weglowodany = p.Węglowodany }).ToList();
             ViewBag.Blonnik = produkt1.Select(p => new { Id = p.Id, Blonnik = p.Błonnik }).ToList();
-            List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
-            Produkt nowy = produkt.FirstOrDefault();
+
             var model = new DanieViewModel();
             model.Produkty.Add(new Produkt() { Id = 1 });
-            //var model = new DanieViewModel
-            //{
-            //    Produkty = posortowanaLista,
-            //    IdProduktu = new List<int>() { 1, 2, 3 }
-            //};
-
+            
             return View(model);
         }
 
-        //private dynamic GetKalorycznosc()
-        //{
-        //    List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
-        //}
+        [HttpPost]
+        public IActionResult Create(DanieViewModel model)
+        {
+            Dania danie = new Dania() { NazwaDania = model.NazwaDania };
+            _db.Dania.Add(danie);
+            _db.SaveChanges();
+            int zapisaneId = danie.Id;
+            foreach (var item in model.Produkty) {
+                int ilosc = (int)model.Ilosc.FirstOrDefault();
+                Debug.WriteLine(item.Nazwa);
+                int id = int.Parse(item.Nazwa);
+                _db.DaniaProdukty.Add(new DaniaProdukty() {IdDania= zapisaneId, IdProduktu = id , Ilość = ilosc});
+            }
+            _db.SaveChanges();
+
+            return RedirectToAction("MyMeals");
+        }
 
         private List<SelectListItem> GetProductsSelect()
         {
@@ -313,27 +309,23 @@ namespace projekt.Controllers
             return lstProducts;
         }
 
-        [HttpPost]
-        public IActionResult Create(DanieViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                //tutaj logika zapisu do bazy danych
-
-                return RedirectToAction("Meals", "MyMeals");
-            }
-
-            // Jeśli wystąpił błąd, ponowne wyrenderowanie widoku z modelem
-            return View(model);
-        }
+        
 
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            Dania danie = _db.Dania.Where(p => p.Id == Id).FirstOrDefault();
+            DanieViewModel model = new DanieViewModel();
+            List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
+            foreach (DaniaProdukty item in _db.DaniaProdukty) { 
+                if (item.IdDania == Id) {
+                    Produkt produktjeden = produkt.Find(p => p.Id == item.IdProduktu);
+                    model.Produkty.Add(produktjeden);
+                }
+
+            }
 
 
-            return View(danie);
+            return View(model);
             //Dania danie = _db.Dania.Where(p => p.Id == Id).FirstOrDefault();
             //return View(danie);
         }

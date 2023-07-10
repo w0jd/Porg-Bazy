@@ -160,7 +160,7 @@
          <div class="form-group btn-group col-12">
                 <div class="col-1"></div>
                 <div class="col-5">
-                    <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                <input type="submit" asp-action="Create" value="Create" class="btn btn-primary btn-block" />
                 </div>           
                 <div class="col-5">
                     <a class="btn btn-secondary btn-block" asp-action="MyMeals"
@@ -322,20 +322,13 @@
            function CalcTotals() {
 
             var x = document.getElementsByClassName('ilosc_class');
-            //var x = document.getElementsByClassName('QtyTotal');
-            //console.log(x)
+            
             var ilosc_total= 0;
             var ilosc_kalorie= 0;
             var ilosc_bialko= 0;
             var ilosc_tluszcz= 0;
             var ilosc_weglowodany= 0;
             var ilosc_blonnik= 0;
-
-            //var totalQty = 0;
-            //var Amount = 0;
-            //var totalAmount = 0;
-            //var txtExchangeRate= 1;
-            
 
             var i;
 
@@ -364,11 +357,7 @@
 
                     ilosc_total = ilosc_total + eval(x[i].value)
                     
-                    //txtprice.value = txtExchangeRate * eval(txtfob.value); 
-                            
-                    //txttotal.value=eval(x[i].value) * txtprice.value;
-
-                    //totalAmount=eval(totalAmount) + eval(txttotal.value);
+                    
                 }
             }
             
@@ -383,24 +372,6 @@
 
             return;
         }
-
-        document.addEventListener('change', function (e) {
-            if (event.target.id.indexOf('ProductCode')>=0)
-            {
-                SetUnitName(event.target);
-            }
-
-        },false);
-
-        document.addEventListener('change', function (e) {
-            if (e.target.classList.contains('do_zmiany')) 
-            {
-                CalcTotals();
-            } 
-        }
-        , false);
-
-
         </script>
     
 }
