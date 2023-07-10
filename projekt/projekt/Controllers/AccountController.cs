@@ -13,7 +13,7 @@ namespace projekt.Controllers
         }//połączenie z bazą
         public IActionResult Index()
         {
-            ViewData["Date"]= DateOnly.FromDateTime(DateTime.Now);
+            ViewData["Date"] = DateOnly.FromDateTime(DateTime.Now);
             var currentDate = DateOnly.FromDateTime(DateTime.Now);
             var userName = User.FindFirst(ClaimTypes.Name).Value;
             var data = _context.Jadlospis;
@@ -31,7 +31,7 @@ namespace projekt.Controllers
             var wynik = _context.Jadlospis
                .Include(a => a.Dania.DaniaProdukty)
                        .ThenInclude(dapro => dapro.Produkty);
-             
+
 
 
             return View(produkt);
@@ -65,8 +65,8 @@ namespace projekt.Controllers
             await SignInUser(user.Nazwa);
             var username = HttpContext.User.Identity.Name;
             return RedirectToAction("Index", "Home");
-          /*  Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
-            return View("wf");*/
+            /*  Console.WriteLine(acc.Nazwa + " " + acc.Haslo);
+              return View("wf");*/
         }
         [HttpGet]
         public IActionResult Register()
@@ -85,8 +85,8 @@ namespace projekt.Controllers
             _context.SaveChanges();
             return View("Login");
         }
-      //  [HttpPost("Login")]
-     
+        //  [HttpPost("Login")]
+
         private async Task SignInUser(string username)
         {
             var claims = new List<Claim>
@@ -98,7 +98,7 @@ namespace projekt.Controllers
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));// zapisuje informacje o użytkownkiu w pliku cookie  claimsPrincipal reprezentuje identyfkacje i autoryzację użytkownika 
-           
+
         }
     }
 }

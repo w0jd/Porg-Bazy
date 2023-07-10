@@ -83,11 +83,19 @@
             <tbody>
                 @foreach (var item in Model.Item2)
                 {
-                List<decimal> wartosc = new List<decimal>();
-                    wartosc.AddRange(dania_detale_suma[0]);
+                    List<decimal> wartosc = new List<decimal>();
+
+                    if (dania_detale_suma[0].Count() == 0)
+                    {
+                        wartosc.AddRange(Enumerable.Repeat(0m, 5));
+                    }
+                    else
+                    {
+                        wartosc.AddRange(dania_detale_suma[0]);
+
+                    }
+                    
                     dania_detale_suma.RemoveAt(0);
-
-
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.NazwaDania)

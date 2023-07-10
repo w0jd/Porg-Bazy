@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace projekt.Models;
+﻿namespace projekt.Models;
 
 public partial class Jadlospis
 {
     [Key]
-    public int IdJadlospis{ get; set; }
+    public int IdJadlospis { get; set; }
     [ForeignKey("IdDania")]
     public int IdDania { get; set; }
     public Dania Dania { get; set; }
