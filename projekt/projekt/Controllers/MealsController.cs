@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using projekt.Models;
 using projekt.Services;
 using projekt.ViewModels;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace projekt.Controllers
 {
@@ -138,7 +132,8 @@ namespace projekt.Controllers
             var products = _dataMealsService.GetProducts();
             var meals = _dataMealsService.GetMeals();
 
-            foreach (var item in meals) {
+            foreach (var item in meals)
+            {
                 var meal_products = _dataMealsService.GetMealsDetails(item.Id);
                 var list_ilosc = _dataMealsService.GetJadlospis(item.Id);
                 List<decimal> suma_dla_dania = new List<decimal>();
@@ -193,7 +188,8 @@ namespace projekt.Controllers
             return View(resault);
         }
         [HttpPost]
-        public IActionResult CreateMeal(string nazwa/*List<Produkt> produkty, List<decimal> ilosc*/) {
+        public IActionResult CreateMeal(string nazwa/*List<Produkt> produkty, List<decimal> ilosc*/)
+        {
             //tutaj logika tworzenie dania 
             return RedirectToAction("MyMeals");
         }
@@ -242,12 +238,13 @@ namespace projekt.Controllers
         }
         [HttpPost]
         //[Route("MealsController/GetProductValues2")]
-        public ActionResult<int> GetProductValues2( )
+        public ActionResult<int> GetProductValues2()
         {
             return 5;
         }
 
-        private List<decimal> GetProductsDetails( int id) {
+        private List<decimal> GetProductsDetails(int id)
+        {
 
             Produkt szukanyProdukt = _dataMealsService.GetProducts().ToList().Find(produkt => produkt.Id == id);
             List<decimal> detale = new List<decimal>
@@ -266,19 +263,19 @@ namespace projekt.Controllers
 
         public IActionResult Create()
         {
-            
+
             ViewBag.ProduktyLista = GetProductsSelect();
             List<Produkt> produkt1 = _dataMealsService.GetProducts().ToList();
-            var modifiedList = produkt1.Select(p => new { Id = p.Id, Kaloryczność = p.Kaloryczność }).ToList();
-            ViewBag.Kalorycznosc= modifiedList;
-            ViewBag.Bialko= GetProductsSelect();
-            ViewBag.Tluszcz= GetProductsSelect();
-            ViewBag.Weglowodany= GetProductsSelect();
-            ViewBag.Blonnik= GetProductsSelect();
+            //var modifiedList = produkt1.Select(p => new { Id = p.Id, Kaloryczność = p.Kaloryczność }).ToList();
+            ViewBag.Kalorycznosc = produkt1.Select(p => new { Id = p.Id, Kaloryczność = p.Kaloryczność }).ToList();
+            ViewBag.Bialko = produkt1.Select(p => new { Id = p.Id, Bialko = p.Białko }).ToList();
+            ViewBag.Tluszcz = produkt1.Select(p => new { Id = p.Id, Tluszcz = p.Tłuszcz }).ToList();
+            ViewBag.Weglowodany = produkt1.Select(p => new { Id = p.Id, Weglowodany = p.Węglowodany }).ToList();
+            ViewBag.Blonnik = produkt1.Select(p => new { Id = p.Id, Blonnik = p.Błonnik }).ToList();
             List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
             Produkt nowy = produkt.FirstOrDefault();
             var model = new DanieViewModel();
-            model.Produkty.Add(new Produkt() { Id = 1});
+            model.Produkty.Add(new Produkt() { Id = 1 });
             //var model = new DanieViewModel
             //{
             //    Produkty = posortowanaLista,

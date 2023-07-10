@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace projekt.Models;
+﻿namespace projekt.Models;
 
 public partial class Dania
 {

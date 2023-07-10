@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using projekt.Models;
-using projekt.ViewModels;
-using System.Diagnostics;
+﻿using projekt.Models;
 
 namespace projekt.Services
 {
@@ -13,7 +10,7 @@ namespace projekt.Services
         IEnumerable<Produkt> GetMealsDetails(int id);
         String GetMealName(int id);
         int DeleteMeal(int id);
-       
+
     }
 
     //service do odczytu produktow zaraz po starcie aplikacji
@@ -23,7 +20,7 @@ namespace projekt.Services
         private IEnumerable<Produkt> _productsList;
         private IEnumerable<Produkt> _mealsDetails;
         private IEnumerable<Dania> _mealsList;
-        
+
 
         public DataMealsService(ApplicationDbContext context)
         {
@@ -41,9 +38,9 @@ namespace projekt.Services
             return _mealsList;
         }
 
-        public  IEnumerable<Produkt> GetProducts()
+        public IEnumerable<Produkt> GetProducts()
         {
-            
+
             if (_productsList == null)
             {
                 _productsList = _context.Produkty.ToList();
@@ -87,9 +84,11 @@ namespace projekt.Services
         {
             IEnumerable<DaniaProdukty> _daniaProdukty = _context.DaniaProdukty.ToList();
             IEnumerable<Jadlospis> _jadlospis = _context.Jadlospis.ToList();
-            var meal = _context.Dania.Find(id); 
-            foreach (var item in _daniaProdukty) {
-                if (item.IdDania == id) { 
+            var meal = _context.Dania.Find(id);
+            foreach (var item in _daniaProdukty)
+            {
+                if (item.IdDania == id)
+                {
                     _context.DaniaProdukty.Remove(item);
                 }
             }
@@ -110,8 +109,10 @@ namespace projekt.Services
         {
             IEnumerable<DaniaProdukty> _dania_produkty = _context.DaniaProdukty.ToList();
             List<decimal> ilosc = new List<decimal>();
-            foreach (var item in _dania_produkty) {
-                if (item.IdDania == id) {
+            foreach (var item in _dania_produkty)
+            {
+                if (item.IdDania == id)
+                {
                     ilosc.Add(item.Ilość);
                 }
             }
@@ -124,14 +125,15 @@ namespace projekt.Services
             IEnumerable<Dania> dania = _context.Dania.ToList();
             foreach (var item in dania)
             {
-                if (item.Id == id) {
+                if (item.Id == id)
+                {
                     return item.NazwaDania;
                 }
-                
+
             }
             return string.Empty;
         }
 
-        
+
     }
 }

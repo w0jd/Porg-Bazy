@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Utilities;
-using projekt.Models;
+﻿using projekt.Models;
 using System.Diagnostics;
 
 namespace projekt.Controllers
@@ -19,10 +16,10 @@ namespace projekt.Controllers
         }
 
         public IActionResult Index()
-        {  
+        {
             return View();
         }
-        
+
         public IActionResult Privacy()
         {
             return View();
@@ -34,6 +31,6 @@ namespace projekt.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        
+
     }
 }
