@@ -73,7 +73,7 @@
                                     <select asp-for="@Model.Produkty[i].Nazwa" class="form-control" asp-items="ViewBag.ProduktyLista" onchange="FillValues(this);"></select>
                                 </td>
                                     <td class="wlasciwosclisty">
-                                        <input asp-for="@Model.Ilosc[i]" class="form-control ilosc_class do_zmiany" onchange="Calculate(this)" value="100" />
+                                <input asp-for="@Model.Ilosc[i]" class="form-control ilosc_class do_zmiany" onchange="Calculate(this)" />
                                         <span asp-validation-for="@Model.Ilosc[i]" class="text-danger"></span>
 									</td>
                                     <td class ="wlasciwosclisty">
@@ -102,56 +102,59 @@
                                         </td>
                                     </tr>                                
                         }
+                        
+                                        <table class="table table-sm mb-0 pb-0 border">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:28%;">
+                                                        Suma
+                                                    </th>
+
+                                                    <th class="wlasciwosclisty">
+                                                        <input type="text" id="ilosc_total" class="form-control form-control-plaintext" value="" />
+                                                    </th>
+
+                                                    <th class="wlasciwosclisty">
+                                                        <input type="text" id="kalorycznosc_total" class="form-control form-control-plaintext" value="" />
+                                                    </th>
+
+                                                    <th class="wlasciwosclisty">
+                                                        <input type="text" id="bialko_total" class="form-control form-control-plaintext" value="" />
+                                                    </th>
+
+                                <th class="wlasciwosclisty">
+                                                        <input type="text" id="tluszcz_total" class="form-control form-control-plaintext" value="" />
+                                                    </th>
+
+                                <th class="wlasciwosclisty">
+                                                        <input type="text" id="weglo_total" class="form-control form-control-plaintext" value="" />
+                                                    </th>
+
+                                <th class="wlasciwosclisty">
+                                                        <input type="text" id="blonnik_total" class="form-control form-control-plaintext" value="" />
+                                                    </th>
+
+                                <th class="wlasciwosclisty">
+                                                    </th>
+                                <th class="wlasciwosclisty"></th>
+                                                </tr>
+
+                                            </thead>
+                                        </table>
                     </tbody>
 
 					</table>     
                     <div>
-                         <div class="form-group col-12">            
-  </div>
+                    <div class="form-group col-12">            
+                     </div>
 
-  <div class="form-group col-12">            
-  </div>
+                     <div class="form-group col-12">            
+                     </div>
                     </div>
-                     <table class="table table-sm mb-0 pb-0 border">
-                         <thead>
-                            <tr>
-                                 <th style="width:30%;">
-                                 Suma
-                                 </th>	
-                             
-                                 <th class ="wlasciwosclisty">		
-                                     <input type="text" id="ilosc_total" class="form-control form-control-plaintext" value="" />
-                                 </th>
-                                
-                                 <th class ="wlasciwosclisty">									
-                                    <input type="text" id="kalorycznosc_total" class="form-control form-control-plaintext" value="" />
-                                 </th>
-                                    
-                                 <th class ="wlasciwosclisty">		
-                                     <input type="text" id="bialko_total" class="form-control form-control-plaintext" value="" />
-                                 </th>
-
-                                 <th style="width:13%;">	
-                                     <input type="text" id="tluszcz_total" class="form-control form-control-plaintext" value="" />
-                                 </th>                  
-                                
-                                 <th style="width:13%;">	
-                                     <input type="text" id="weglo_total" class="form-control form-control-plaintext" value="" />
-                                 </th>					
-
-                                 <th style="width:13%;">									
-                                    <input type="text" id="blonnik_total" class="form-control form-control-plaintext" value="" />
-                                 </th>					
-                                
-                                 <th style="width:9%;">                                      
-                                 </th>
-                            </tr>
- 
-                            </thead>
-                        </table>
+                     
                     
 
-				</div>
+				    </div>
 
 
 
@@ -224,11 +227,11 @@
         document.getElementById(id_tluszcz).value=tluszcz.tluszcz;
         document.getElementById(id_weglo).value=weglo.weglowodany;
         document.getElementById(id_blonnik).value=blonnik.blonnik;    
-        Calculate(item)
+        return 
       }
 
-      function Calculate(item){ 
-          
+      function Calculate(item){
+        
         const regex = /\d+/;
         const match = item.id.match(regex);
         var number = 100;
@@ -236,6 +239,8 @@
           number = parseInt(match[0]);     
         } else {         
         }
+        var item2 = document.getElementById("Produkty_"+number+"__Nazwa")
+        FillValues(item2)
         var id_ilosc = "Ilosc_"+number+"_"
         var id_kalorycznosc = "Produkty_"+number+"__Kaloryczno__";
         var id_bialko = "Produkty_"+number+"__Bia_ko";
@@ -250,15 +255,15 @@
         }
         console.log("Nie Jest puste")
         
-        kalorycznosc  = document.getElementById(id_kalorycznosc).value;
+        var kalorycznosc  = document.getElementById(id_kalorycznosc).value;
         document.getElementById(id_kalorycznosc).value = (parseFloat(ilosc, 10) * parseFloat(kalorycznosc, 10)/100).toFixed(2)
-        bialko = document.getElementById(id_bialko).value;
+        var bialko = document.getElementById(id_bialko).value;
         document.getElementById(id_bialko).value = (parseFloat(ilosc, 10) * parseFloat(bialko, 10)/100).toFixed(2)
-        tluszcz = document.getElementById(id_tluszcz).value;
+        var tluszcz = document.getElementById(id_tluszcz).value;
         document.getElementById(id_tluszcz).value = (parseFloat(ilosc, 10) * parseFloat(tluszcz, 10)/100).toFixed(2)
-        weglo =  document.getElementById(id_weglo).value;
+        var weglo =  document.getElementById(id_weglo).value;
         document.getElementById(id_weglo).value = (parseFloat(ilosc, 10) * parseFloat(weglo, 10)/100).toFixed(2)
-        blonnik = document.getElementById(id_blonnik).value ;
+        var blonnik = document.getElementById(id_blonnik).value ;
         document.getElementById(id_blonnik).value = (parseFloat(ilosc, 10) * parseFloat(blonnik, 10)/100).toFixed(2)
 
 
@@ -349,15 +354,12 @@
                 console.log(i)
 
                 if (document.getElementById(idOfIsDeleted).value != "true") {
+                    ilosc_total = parseFloat(ilosc_total, 10) + parseFloat(document.getElementById(id_ilosc).value, 10);
                     ilosc_kalorie = parseFloat(ilosc_kalorie, 10) + parseFloat(document.getElementById(id_kalorycznosc).value, 10);
                     ilosc_bialko = parseFloat(ilosc_bialko, 10) + parseFloat(document.getElementById(id_bialko).value, 10);
                     ilosc_tluszcz = parseFloat(ilosc_tluszcz, 10) + parseFloat(document.getElementById(id_tluszcz).value, 10);
                     ilosc_weglowodany= parseFloat(ilosc_weglowodany, 10) + parseFloat(document.getElementById(id_weglo).value, 10);
-                    ilosc_blonnik= parseFloat(ilosc_blonnik, 10) + parseFloat(document.getElementById(id_blonnik).value, 10);
-
-                    ilosc_total = ilosc_total + eval(x[i].value)
-                    
-                    
+                    ilosc_blonnik= parseFloat(ilosc_blonnik, 10) + parseFloat(document.getElementById(id_blonnik).value, 10);             
                 }
             }
             

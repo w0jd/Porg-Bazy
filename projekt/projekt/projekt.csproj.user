@@ -4,6 +4,7 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup>
-    <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
+    <ActiveDebugProfile>projekt</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>D:\GDrive pawelitwojcik\Studia\Semestr 4\Programowanie obiektowe i graficzne\Porg-Bazy\.github\workflows\projekt20230710124435.yml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
