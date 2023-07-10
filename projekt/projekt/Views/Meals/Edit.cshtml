@@ -25,8 +25,8 @@
 
         <label asp-for="NazwaDania" class="control-label">Nazwa Dania</label>
 
-        <input asp-for="NazwaDania" class="form-control" />
-
+        <input asp-for="NazwaDania" class="form-control" value="@Model.NazwaDania" />
+        
 
 
         <div class="edit-table">
@@ -68,10 +68,10 @@
                         <tr>
                             <td style="width:30%;">
                                 @*<input asp-for="@Model.PoDetails[i].ProductCode" class="form-control" />*@
-                                <select asp-for="@Model.Produkty[i].Nazwa" class="form-control" asp-items="ViewBag.ProduktyLista" onchange="FillValues(this);"></select>
+                                <select asp-for="@Model.Produkty[i].Nazwa" data-wartosc="@Model.Produkty[i].Id" class="form-control" asp-items="ViewBag.ProduktyLista" onchange="FillValues(this)"></select>
                             </td>
                             <td class="wlasciwosclisty">
-                                <input asp-for="@Model.Ilosc[i]" class="form-control ilosc_class do_zmiany" onchange="Calculate(this)" value="100" />
+                                <input asp-for="@Model.Ilosc[i]" class="form-control ilosc_class do_zmiany" onchange="FillValues(this)" />
                                 <span asp-validation-for="@Model.Ilosc[i]" class="text-danger"></span>
                             </td>
                             <td class="wlasciwosclisty">
@@ -162,7 +162,7 @@
             </div>
             <div class="col-5">
                 <a class="btn btn-secondary btn-block" asp-action="MyMeals"
-                   asp-route-pg="@TempData.Peek("CurrentPage")">Wstecz</a>
+                   asp-route-pg="@TempData.Peek("CurrentPage")">Anuluj</a>
             </div>
             <div class="col-1"></div>
         </div>
@@ -174,18 +174,40 @@
 </div>
 @section Scripts {
     <script>
-
-        var myArray = JSON.parse('@Json.Serialize(ViewBag.ProduktyLista)');
+        
+        var myArray = JSON.parse('@Json.Serialize(ViewBag.ProduktyLista)');       
         var kalorycznoscArray = JSON.parse('@Json.Serialize(ViewBag.Kalorycznosc)');
         var bialkoArray = JSON.parse('@Json.Serialize(ViewBag.Bialko)');
         var tluszczArray = JSON.parse('@Json.Serialize(ViewBag.Tluszcz)');
         var wegloArray = JSON.parse('@Json.Serialize(ViewBag.Weglowodany)');
         var blonnikArray = JSON.parse('@Json.Serialize(ViewBag.Blonnik)');
 
-        function FillValues(item) {
+        //FillSelected()
+        
+        //function FillSelected() {       
+        //    var x = document.getElementsByClassName('ilosc_class');
+        //    console.log("dlugosc"+x.length)
+        //    var i;
+        //    for (i = 0; i < x.length; i++) {
+        //        var id_produkt = "Produkty_"+i+"__Nazwa"
+        //        var lista = document.getElementById(id_produkt)
+        //        var value = document.getElementById(id_produkt).dataset.wartosc
 
+        //        var optionToFind = lista.querySelector("option[value='" + value + "']");
+        //        optionToFind.selected = true;
+
+        //        var ilosc = document.getElementById("Ilosc_"+i+"_")
+        //        FillValues(ilosc)
+        //        }
+            
+        //    }
+    
+
+        function FillValues(item) {
+            console.log("Wypelniam")
             const regex = /\d+/;
             const match = item.id.match(regex);
+            console.log(match)
             var number = 100;
             if (match) {
                 number = parseInt(match[0]);
@@ -217,7 +239,7 @@
                 return element.id == item.value;
             });
 
-            document.getElementById(id_kalorycznosc).value = kalorycznosc.kaloryczność;
+            document.getElementById(id_kalorycznosc).value = kalorycznosc.kalorycznosc;
             document.getElementById(id_bialko).value = bialko.bialko;
             document.getElementById(id_tluszcz).value = tluszcz.tluszcz;
             document.getElementById(id_weglo).value = weglo.weglowodany;
@@ -226,7 +248,6 @@
         }
 
         function Calculate(item) {
-
             const regex = /\d+/;
             const match = item.id.match(regex);
             var number = 100;
@@ -248,18 +269,17 @@
             }
             console.log("Nie Jest puste")
 
-            kalorycznosc = document.getElementById(id_kalorycznosc).value;
+            var kalorycznosc = document.getElementById(id_kalorycznosc).value;
             document.getElementById(id_kalorycznosc).value = (parseFloat(ilosc, 10) * parseFloat(kalorycznosc, 10) / 100).toFixed(2)
-            bialko = document.getElementById(id_bialko).value;
+            var bialko = document.getElementById(id_bialko).value;
             document.getElementById(id_bialko).value = (parseFloat(ilosc, 10) * parseFloat(bialko, 10) / 100).toFixed(2)
-            tluszcz = document.getElementById(id_tluszcz).value;
+            var tluszcz = document.getElementById(id_tluszcz).value;
+            
             document.getElementById(id_tluszcz).value = (parseFloat(ilosc, 10) * parseFloat(tluszcz, 10) / 100).toFixed(2)
-            weglo = document.getElementById(id_weglo).value;
+            var weglo = document.getElementById(id_weglo).value;
             document.getElementById(id_weglo).value = (parseFloat(ilosc, 10) * parseFloat(weglo, 10) / 100).toFixed(2)
-            blonnik = document.getElementById(id_blonnik).value;
+            var blonnik = document.getElementById(id_blonnik).value;
             document.getElementById(id_blonnik).value = (parseFloat(ilosc, 10) * parseFloat(blonnik, 10) / 100).toFixed(2)
-
-
             CalcTotals()
 
         }
@@ -320,21 +340,13 @@
         function CalcTotals() {
 
             var x = document.getElementsByClassName('ilosc_class');
-            //var x = document.getElementsByClassName('QtyTotal');
-            //console.log(x)
+            
             var ilosc_total = 0;
             var ilosc_kalorie = 0;
             var ilosc_bialko = 0;
             var ilosc_tluszcz = 0;
             var ilosc_weglowodany = 0;
             var ilosc_blonnik = 0;
-
-            //var totalQty = 0;
-            //var Amount = 0;
-            //var totalAmount = 0;
-            //var txtExchangeRate= 1;
-
-
             var i;
 
             for (i = 0; i < x.length; i++) {
@@ -354,19 +366,12 @@
                 console.log(i)
 
                 if (document.getElementById(idOfIsDeleted).value != "true") {
+                    ilosc_total = parseFloat(ilosc_total, 10) + parseFloat(document.getElementById(id_ilosc).value, 10);
                     ilosc_kalorie = parseFloat(ilosc_kalorie, 10) + parseFloat(document.getElementById(id_kalorycznosc).value, 10);
                     ilosc_bialko = parseFloat(ilosc_bialko, 10) + parseFloat(document.getElementById(id_bialko).value, 10);
                     ilosc_tluszcz = parseFloat(ilosc_tluszcz, 10) + parseFloat(document.getElementById(id_tluszcz).value, 10);
                     ilosc_weglowodany = parseFloat(ilosc_weglowodany, 10) + parseFloat(document.getElementById(id_weglo).value, 10);
                     ilosc_blonnik = parseFloat(ilosc_blonnik, 10) + parseFloat(document.getElementById(id_blonnik).value, 10);
-
-                    ilosc_total = ilosc_total + eval(x[i].value)
-
-                    //txtprice.value = txtExchangeRate * eval(txtfob.value);
-
-                    //txttotal.value=eval(x[i].value) * txtprice.value;
-
-                    //totalAmount=eval(totalAmount) + eval(txttotal.value);
                 }
             }
 
@@ -382,19 +387,19 @@
             return;
         }
 
-        document.addEventListener('change', function (e) {
-            if (event.target.id.indexOf('ProductCode') >= 0) {
-                SetUnitName(event.target);
-            }
+        //document.addEventListener('change', function (e) {
+        //    if (event.target.id.indexOf('ProductCode') >= 0) {
+        //        SetUnitName(event.target);
+        //    }
 
-        }, false);
+        //}, false);
 
-        document.addEventListener('change', function (e) {
-            if (e.target.classList.contains('do_zmiany')) {
-                CalcTotals();
-            }
-        }
-            , false);
+        //document.addEventListener('change', function (e) {
+        //    if (e.target.classList.contains('do_zmiany')) {
+        //        CalcTotals();
+        //    }
+        //}
+        //    , false);
 
 
     </script>

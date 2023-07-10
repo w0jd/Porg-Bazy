@@ -244,23 +244,18 @@ namespace projekt.Controllers
 
         [HttpPost]
         public IActionResult Create(DanieViewModel model)
-        {
-            Debug.WriteLine("???????????????????????????????????????????????????ilosc produktow"+model.Produkty.Count());
-            Debug.WriteLine("???????????????????????????????????????????????????nazwa "+ model.Produkty.First().Nazwa);
-            if (model.NazwaDania == null) {
-                Debug.WriteLine("??????????????????????????????????????????????????? pusta nazwa");
+        {           
+            if (model.NazwaDania == null) {             
                 TempData["Komunikat"] = "Nazwa nie może być pusta";
                 return RedirectToAction("MyMeals");
-                
             }
 
             if (model.Produkty.Count == 1 && model.Produkty.First().Nazwa==null) {
                 TempData["Komunikat"] = "Wybierz przynajmniej jeden produkt";
-                Debug.WriteLine("???????????????????????????????????????????????????"+ model.Produkty.First().Nazwa);
+               
                 return RedirectToAction("MyMeals");
             }
-
-            Debug.WriteLine("???????????????????????????????????????????????????za daleko");
+           
             Dania danie = new Dania() { NazwaDania = model.NazwaDania };
             _db.Dania.Add(danie);
             _db.SaveChanges();
@@ -304,15 +299,29 @@ namespace projekt.Controllers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
+            ViewBag.ProduktyLista = GetProductsSelect();
+            List<Produkt> produkt1 = _dataMealsService.GetProducts().ToList();
+            ViewBag.Kalorycznosc = produkt1.Select(p => new { Id = p.Id, Kalorycznosc = p.Kaloryczność }).ToList();
+            ViewBag.Bialko = produkt1.Select(p => new { Id = p.Id, Bialko = p.Białko }).ToList();
+            ViewBag.Tluszcz = produkt1.Select(p => new { Id = p.Id, Tluszcz = p.Tłuszcz }).ToList();
+            ViewBag.Weglowodany = produkt1.Select(p => new { Id = p.Id, Weglowodany = p.Węglowodany }).ToList();
+            ViewBag.Blonnik = produkt1.Select(p => new { Id = p.Id, Blonnik = p.Błonnik }).ToList();
+
+            ViewBag.ProduktyLista = GetProductsSelect();
             DanieViewModel model = new DanieViewModel();
+            model.NazwaDania =  _dataMealsService.GetMealName(Id);
+            model.Ilosc = new List<Decimal>();
             List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
             foreach (DaniaProdukty item in _db.DaniaProdukty) { 
                 if (item.IdDania == Id) {
                     Produkt produktjeden = produkt.Find(p => p.Id == item.IdProduktu);
+                    decimal ilosc = item.Ilość;
+                    model.Ilosc.Add(ilosc);
                     model.Produkty.Add(produktjeden);
                 }
 
             }
+
 
 
             return View(model);
