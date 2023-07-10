@@ -229,7 +229,7 @@ namespace projekt.Controllers
 
             ViewBag.ProduktyLista = GetProductsSelect();
             List<Produkt> produkt1 = _dataMealsService.GetProducts().ToList();
-            
+            TempData["Id"] = 0;
             ViewBag.Kalorycznosc = produkt1.Select(p => new { Id = p.Id, Kaloryczność = p.Kaloryczność }).ToList();
             ViewBag.Bialko = produkt1.Select(p => new { Id = p.Id, Bialko = p.Białko }).ToList();
             ViewBag.Tluszcz = produkt1.Select(p => new { Id = p.Id, Tluszcz = p.Tłuszcz }).ToList();
@@ -244,7 +244,10 @@ namespace projekt.Controllers
 
         [HttpPost]
         public IActionResult Create(DanieViewModel model)
-        {           
+        {
+            if (model.Id != 0) {
+                _dataMealsService.DeleteMeal(model.Id);
+            }
             if (model.NazwaDania == null) {             
                 TempData["Komunikat"] = "Nazwa nie może być pusta";
                 return RedirectToAction("MyMeals");
@@ -262,7 +265,10 @@ namespace projekt.Controllers
             int zapisaneId = danie.Id;
             foreach (var item in model.Produkty) {
                 int ilosc = (int)model.Ilosc.FirstOrDefault();
-                model.Ilosc.RemoveAt(0);
+                if (ilosc <=0) {
+                    continue;
+                }
+                model.Ilosc.Remove(model.Ilosc.FirstOrDefault());
                 Debug.WriteLine(item.Nazwa);
                 int id = int.Parse(item.Nazwa);
                 _db.DaniaProdukty.Add(new DaniaProdukty() {IdDania= zapisaneId, IdProduktu = id , Ilość = ilosc});
@@ -300,18 +306,24 @@ namespace projekt.Controllers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
+            
             ViewBag.ProduktyLista = GetProductsSelect();
             List<Produkt> produkt1 = _dataMealsService.GetProducts().ToList();
-            ViewBag.Kalorycznosc = produkt1.Select(p => new { Id = p.Id, Kalorycznosc = p.Kaloryczność }).ToList();
+            ViewBag.Kalorycznosc = produkt1.Select(p => new { Id = p.Id, Kaloryczność = p.Kaloryczność }).ToList();
             ViewBag.Bialko = produkt1.Select(p => new { Id = p.Id, Bialko = p.Białko }).ToList();
             ViewBag.Tluszcz = produkt1.Select(p => new { Id = p.Id, Tluszcz = p.Tłuszcz }).ToList();
             ViewBag.Weglowodany = produkt1.Select(p => new { Id = p.Id, Weglowodany = p.Węglowodany }).ToList();
             ViewBag.Blonnik = produkt1.Select(p => new { Id = p.Id, Blonnik = p.Błonnik }).ToList();
 
-            ViewBag.ProduktyLista = GetProductsSelect();
+            
             DanieViewModel model = new DanieViewModel();
             model.NazwaDania =  _dataMealsService.GetMealName(Id);
             model.Ilosc = new List<Decimal>();
+            model.Id = Id;
+            Debug.WriteLine(Id);
+            Debug.WriteLine("MODEL ID " + model.Id);
+            Debug.WriteLine("");
+            Debug.WriteLine("");
             List<Produkt> produkt = _dataMealsService.GetProducts().ToList();
             foreach (DaniaProdukty item in _db.DaniaProdukty) { 
                 if (item.IdDania == Id) {
@@ -320,24 +332,21 @@ namespace projekt.Controllers
                     model.Ilosc.Add(ilosc);
                     model.Produkty.Add(produktjeden);
                 }
-
             }
-
-
-
-            return View(model);
-            //Dania danie = _db.Dania.Where(p => p.Id == Id).FirstOrDefault();
-            //return View(danie);
+            
+            
+            return View(model);   
         }
-        [HttpPost]
-        public IActionResult Edit(DaniaProdukty danie)
-        {
-            _db.Attach(danie);
-            _db.Entry(danie).State = EntityState.Modified;
-            _db.SaveChanges();
-            return RedirectToAction("MyMeals");
 
-        }
+        //[HttpPost]
+        //public IActionResult Edit(DaniaProdukty danie)
+        //{
+        //    _db.Attach(danie);
+        //    _db.Entry(danie).State = EntityState.Modified;
+        //    _db.SaveChanges();
+        //    return RedirectToAction("MyMeals");
+
+        //}
 
     }
 }
