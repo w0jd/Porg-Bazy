@@ -264,7 +264,8 @@ namespace projekt.Controllers
             _db.SaveChanges();
             int zapisaneId = danie.Id;
             foreach (var item in model.Produkty) {
-                int ilosc = (int)model.Ilosc.FirstOrDefault();
+                
+                int ilosc = Convert.ToInt32(model.Ilosc.FirstOrDefault());
                 if (ilosc <=0) {
                     continue;
                 }
