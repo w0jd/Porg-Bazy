@@ -96,7 +96,7 @@
     margin: 10px;
     float: left;
     min-width: 350px;
-    width: 45%;
+    width: 47%;
     min-height:400px;
     max-height: 400px;
     overflow-y: auto;
@@ -139,7 +139,7 @@
     float: left;
     position: relative;
     min-width: 350px;
-    width: 45%;
+    width: 47%;
     height: auto;
 }
 .bottom-nav button{

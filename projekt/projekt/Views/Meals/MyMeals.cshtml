@@ -29,19 +29,7 @@
 
 </style>
 
-<div class="btn-group">
-    <a asp-controller="Home" asp-action="Index">
-        <span class="btn btn-sm btn-outline-primary">
-            <i class="fa fa-arrow-left"></i>
-        </span>
-    </a>
-    
-    <a asp-action="Create" class="btn btn-success">
-        Utwórz nowy
-        
-            
-        </a>
-    </div>
+
 
 
 
@@ -53,7 +41,19 @@
 
     <partial name="_pager" model="@pager" />
     <div class="right-div" >  
-        
+        <div class="btngroup">
+            <a asp-controller="Home" asp-action="Index" id="back">
+                <span class="btn btn-outline-primary">
+                    <i class="fa fa-arrow-left"></i>
+                </span>
+            </a>
+
+            <a asp-action="Create" class="btn btn-success" id="add-new">
+                Utwórz nowy
+
+
+            </a>
+        </div>
         <table class="table">
             <thead>
                 <tr>
