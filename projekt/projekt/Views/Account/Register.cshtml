@@ -2,15 +2,16 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Rejestracja</h1>
+<div id="login">
 <div class="login-form">
+    <h1>Rejestracja</h1>
     <form action="Register" method="post">
         <div class="pole-login">
             <label>Nazwa użytkownika:</label>
             <input type="text" name="Nazwa" placeholder="wpisz nazwę użytkownika" required="" />
         </div>
         <div class="pole-login">
-            <label>hasło</label>
+            <label>Hasło:</label>
             <input type="password" name="Haslo" placeholder="Wpisz hasło" required="" id="passwd" />
         </div>
         <div class="label">
@@ -32,4 +33,5 @@
         </script>
         <input type="submit" value="Zarejestruj się" />
     </form>
+</div>
 </div>

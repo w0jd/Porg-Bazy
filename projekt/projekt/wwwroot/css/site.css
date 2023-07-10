@@ -1,5 +1,6 @@
 @import "account.css";
 @import "meals.css";
+@import "login.css";
 html {
     font-size: 14px;
 }
@@ -26,6 +27,9 @@ footer {
     background:inherit;
     padding:0.5em 0px 0.5em 0px!important;
     width: 100%;
+}
+footer .container{
+    margin:1em 5em ;
 }
 
 .list {

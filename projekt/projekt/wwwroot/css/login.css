@@ -1,0 +1,24 @@
+﻿#login {
+    display: flex;
+    justify-content: center;
+    position:relative;
+}
+#login h1{
+    display:block;
+    width:100%;
+    text-align:center;
+}
+.login-form{
+    width:400px;
+    padding:1em;
+}
+.pole-login {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.label{
+    width:100%;
+    display:inline-block;
+}
