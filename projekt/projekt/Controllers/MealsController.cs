@@ -262,6 +262,7 @@ namespace projekt.Controllers
             int zapisaneId = danie.Id;
             foreach (var item in model.Produkty) {
                 int ilosc = (int)model.Ilosc.FirstOrDefault();
+                model.Ilosc.RemoveAt(0);
                 Debug.WriteLine(item.Nazwa);
                 int id = int.Parse(item.Nazwa);
                 _db.DaniaProdukty.Add(new DaniaProdukty() {IdDania= zapisaneId, IdProduktu = id , Ilość = ilosc});
