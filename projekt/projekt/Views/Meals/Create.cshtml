@@ -11,6 +11,7 @@
     }
 </style>
 
+
 	<div class="card">
 		<div class="card-header bg-success text-uppercase text-white text-center mb-2 pt-0" style="height:25px;">
         <h6>Utwórz danie</h6>
@@ -20,14 +21,15 @@
   <form id="CodeSbyAnizForm" asp-action="Create">
 
   
-           <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             
                 <label asp-for="NazwaDania" class="control-label"></label>            
            
                 <input asp-for="NazwaDania" class="form-control" />
-                @*<span asp-validation-for="PoNumber" class="text-danger"></span> *@
-           
+                 <span asp-validation-for="@Model.NazwaDania" class="text-danger"></span>
+
+                
             
           
 
@@ -73,7 +75,7 @@
                                     <select asp-for="@Model.Produkty[i].Nazwa" class="form-control" asp-items="ViewBag.ProduktyLista" onchange="FillValues(this);"></select>
                                 </td>
                                     <td class="wlasciwosclisty">
-                                <input asp-for="@Model.Ilosc[i]" class="form-control ilosc_class do_zmiany" onchange="Calculate(this)" />
+                                        <input asp-for="@Model.Ilosc[i]" class="form-control ilosc_class do_zmiany" onchange="Calculate(this)" />
                                         <span asp-validation-for="@Model.Ilosc[i]" class="text-danger"></span>
 									</td>
                                     <td class ="wlasciwosclisty">
@@ -163,7 +165,7 @@
          <div class="form-group btn-group col-12">
                 <div class="col-1"></div>
                 <div class="col-5">
-                <input type="submit" asp-action="Create" value="Create" class="btn btn-primary btn-block" />
+                <input type="submit" asp-action="Create" value="Create" class="btn btn-primary btn-block" onclick="Aktualizuj()" />
                 </div>           
                 <div class="col-5">
                     <a class="btn btn-secondary btn-block" asp-action="MyMeals"
@@ -187,6 +189,18 @@
        var wegloArray = JSON.parse('@Json.Serialize(ViewBag.Weglowodany)');
        var blonnikArray = JSON.parse('@Json.Serialize(ViewBag.Blonnik)');
    
+       function Aktualizuj(){
+
+            var x = document.getElementsByClassName('ilosc_class');
+
+            var i;
+
+            for (i = 0; i < x.length; i++) {
+                Calculate(x)
+
+            }
+       }
+
       function FillValues(item){   
           
         const regex = /\d+/;
@@ -314,6 +328,7 @@
                 if (x[cnt].type == "text" && x[cnt].id.indexOf('_' + nextrowIdx + '_') > 0) {
                     if (x[cnt].id.indexOf('Unit') == 0)
                         x[cnt].value = '';
+                        
                 }
                 else if (x[cnt].type == "number" && x[cnt].id.indexOf('_' + nextrowIdx + '_') > 0)
                     x[cnt].value = 0;
